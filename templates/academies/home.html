@@ -1,0 +1,785 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - PlayFind Sports Academy Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Video Background -->
+<section class="relative h-screen overflow-hidden text-white">
+    <!-- Video Background -->
+    <div class="absolute inset-0">
+        <video 
+            autoplay 
+            loop 
+            muted 
+            playsinline
+            class="w-full h-full object-cover"
+            poster="https://unsplash.com/photos/silhouette-of-people-playing-basketball-during-sunset-0NaQQsLWLkA"
+        >
+            <source src="https://videos.pexels.com/video-files/6077689/6077689-uhd_1440_2560_25fps.mp4" type="video/mp4">
+            <!-- Fallback image if video doesn't load -->
+            <img src="https://media.istockphoto.com/id/1164736873/photo/silhouette-action-sport-outdoors-of-a-group-of-kids-having-fun-playing-soccer-football-for.jpg?s=1024x1024&w=is&k=20&c=m3AqdctxMKV1k4HXKNSSGPLB6khi1tFU5adNJyGSQms=" alt="Girl playing sports" class="w-full h-full object-cover">
+        </video>
+        
+        <!-- Reduced Blur Overlay -->
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-xs"></div>
+        
+        <!-- Gradient Overlay for better text visibility -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60"></div>
+    </div>
+    
+    <!-- Content -->
+    <div class="relative h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-3 rounded-full text-sm font-bold mb-8 shadow-2xl">
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                    </svg>
+                    Empowering Athletes Worldwide
+                </span>
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
+                <span class="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent drop-shadow-lg">
+                    Champion Your
+                </span>
+                <br>
+                <span class="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent drop-shadow-lg">
+                    Sports Journey
+                </span>
+            </h1>
+            
+            <!-- Description -->
+            <p class="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light mb-12">
+                Join thousands of athletes breaking barriers and achieving excellence. 
+                Discover world-class coaching designed to unleash your full potential.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+                <a href="{% url 'accounts:signup' %}" class="group bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white px-10 py-5 rounded-2xl font-bold transition-all transform hover:scale-110 shadow-2xl flex items-center justify-center gap-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    Start Training Now
+                    <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+                <a href="{% url 'academies:explore' %}" class="group bg-white/10 backdrop-blur-md border-2 border-white/30 hover:bg-white hover:text-slate-900 px-10 py-5 rounded-2xl font-bold transition-all transform hover:scale-105 flex items-center justify-center gap-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    Find Your Academy
+                </a>
+            </div>
+            
+            <!-- Trust Indicators -->
+            <div class="flex flex-wrap justify-center gap-8">
+                <div class="flex items-center gap-2 text-white/80">
+                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm font-medium">Expert Coaches</span>
+                </div>
+                <div class="flex items-center gap-2 text-white/80">
+                    <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 .534-.045 1.034-.123 1.511l.331.737c.05.12.074.244.074.372 0 .29-.124.547-.372.689l-6.5 3.5a1.001 1.001 0 01-.956 0l-6.5-3.5a1.002 1.002 0 01-.372-.689c0-.128.024-.252.074-.372l.331-.737C3.27 6.245 3.225 5.745 3.225 5.211c0-.681.056-1.351.166-2.001zM2.5 8.558V17a1 1 0 001.555.832l6.5-4.331a1 1 0 00.445-.832V8.558a1 1 0 00-.445-.832L4.055 3.395A1 1 0 002.5 4.227v4.331z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm font-medium">Premium Facilities</span>
+                </div>
+                <div class="flex items-center gap-2 text-white/80">
+                    <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                    </svg>
+                    <span class="text-sm font-medium">50K+ Athletes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"></div>
+    </div>
+    
+    <!-- Sports Icons Background -->
+    <div class="absolute inset-0 opacity-5">
+        <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=100&h=100&fit=crop&crop=center" alt="Tennis" class="absolute top-10 left-10 w-20 h-20 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc0?w=100&h=100&fit=crop&crop=center" alt="Basketball" class="absolute top-1/3 right-20 w-24 h-24 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=100&h=100&fit=crop&crop=center" alt="Volleyball" class="absolute bottom-20 left-1/4 w-20 h-20 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=100&h=100&fit=crop&crop=center" alt="Swimming" class="absolute top-1/2 left-1/3 w-20 h-20 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=100&h=100&fit=crop&crop=center" alt="Badminton" class="absolute bottom-1/3 right-1/4 w-16 h-16 rounded-full object-cover">
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+                <span class="bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent">
+                    Why Choose SPORTS ARENA?
+                </span>
+            </h2>
+            <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                Empowering athletes with world-class training facilities and expert coaching
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="group">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="bg-gradient-to-r from-blue-600 to-green-500 w-24 h-24 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=100&h=100&fit=crop&crop=center" alt="Tennis Coaching" class="w-20 h-20 rounded-2xl object-cover hover:scale-105 transition-transform">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">Elite Coaching</h3>
+                    <p class="text-slate-300 leading-relaxed">Train with certified coaches who understand the unique needs and challenges of athletes at all levels.</p>
+                </div>
+            </div>
+            
+            <div class="group">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="bg-gradient-to-r from-green-600 to-emerald-500 w-24 h-24 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform overflow-hidden shadow-2xl">
+                        <img src="https://images.pexels.com/photos/13425678/pexels-photo-13425678.jpeg" alt="Sports Facilities" class="w-20 h-20 rounded-2xl object-cover hover:scale-105 transition-transform">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors">State-of-the-Art Facilities</h3>
+                    <p class="text-slate-300 leading-relaxed">Access premium training centers with modern equipment, safe environments, and athlete-friendly facilities.</p>
+                </div>
+            </div>
+            
+            <div class="group">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="bg-gradient-to-r from-purple-600 to-indigo-500 w-24 h-24 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=100&h=100&fit=crop&crop=center" alt="Swimming Pool" class="w-20 h-20 rounded-2xl object-cover hover:scale-105 transition-transform">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">Flexible Scheduling</h3>
+                    <p class="text-slate-300 leading-relaxed">Choose training times that fit your lifestyle with morning, evening, and weekend options available.</p>
+                </div>
+            </div>
+            
+            <div class="group">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="bg-gradient-to-r from-orange-600 to-red-500 w-24 h-24 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=100&h=100&fit=crop&crop=center" alt="Volleyball Competition" class="w-20 h-20 rounded-2xl object-cover hover:scale-105 transition-transform">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">Competitive Opportunities</h3>
+                    <p class="text-slate-300 leading-relaxed">Participate in tournaments, competitions, and leagues designed for athletes of all skill levels.</p>
+                </div>
+            </div>
+            
+            <div class="group">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="bg-gradient-to-r from-pink-600 to-rose-500 w-24 h-24 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=100&h=100&fit=crop&crop=center" alt="Badminton Analytics" class="w-20 h-20 rounded-2xl object-cover hover:scale-105 transition-transform">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pink-400 transition-colors">Performance Analytics</h3>
+                    <p class="text-slate-300 leading-relaxed">Track your progress with detailed analytics and personalized training plans for optimal results.</p>
+                </div>
+            </div>
+            
+            <div class="group">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-3xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="bg-gradient-to-r from-cyan-600 to-blue-500 w-24 h-24 rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=100&h=100&fit=crop&crop=center" alt="Yoga Wellness" class="w-20 h-20 rounded-2xl object-cover hover:scale-105 transition-transform">
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">Wellness & Nutrition</h3>
+                    <p class="text-slate-300 leading-relaxed">Comprehensive wellness programs including nutrition guidance, mental health support, and recovery training.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-20 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+                <span class="bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent">
+                    How It Works
+                </span>
+            </h2>
+            <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                Find your perfect sports academy in just 3 simple steps
+            </p>
+        </div>
+        
+        <!-- Horizontal Steps -->
+        <div class="relative">
+            <!-- Connecting Line -->
+            <div class="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 transform -translate-y-1/2"></div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4">
+                <!-- Step 1 -->
+                <div class="relative flex flex-col items-center text-center md:w-1/3">
+                    <div class="bg-gradient-to-r from-pink-600 to-rose-600 w-24 h-24 rounded-full flex items-center justify-center mb-6 shadow-2xl border-4 border-slate-900 relative z-10">
+                        <span class="text-4xl font-black text-white">1</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Search & Discover</h3>
+                    <p class="text-slate-300 leading-relaxed">Browse through our extensive network of verified sports academies across multiple disciplines.</p>
+                    <div class="mt-4 flex justify-center">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&h=120&fit=crop&crop=center" alt="Search" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="relative flex flex-col items-center text-center md:w-1/3">
+                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 w-24 h-24 rounded-full flex items-center justify-center mb-6 shadow-2xl border-4 border-slate-900 relative z-10">
+                        <span class="text-4xl font-black text-white">2</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Compare & Choose</h3>
+                    <p class="text-slate-300 leading-relaxed">Compare academies based on location, fees, coaching quality, and facilities.</p>
+                    <div class="mt-4 flex justify-center">
+                        <img src="https://images.pexels.com/photos/4386370/pexels-photo-4386370.jpeg" alt="Compare" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="relative flex flex-col items-center text-center md:w-1/3">
+                    <div class="bg-gradient-to-r from-blue-600 to-cyan-600 w-24 h-24 rounded-full flex items-center justify-center mb-6 shadow-2xl border-4 border-slate-900 relative z-10">
+                        <span class="text-4xl font-black text-white">3</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Join & Excel</h3>
+                    <p class="text-slate-300 leading-relaxed">Book your spot and start your journey to athletic excellence today.</p>
+                    <div class="mt-4 flex justify-center">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=120&h=120&fit=crop&crop=center" alt="Trophy" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Stats -->
+<section class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-pink-600 via-purple-600 to-blue-600"></div>
+    </div>
+    
+    <!-- Sports Icons Background -->
+    <div class="absolute inset-0 opacity-5">
+        <img src="https://images.unsplash.com/photo-1517466787929-bc90951ce09e?w=80&h=80&fit=crop&crop=center" alt="Soccer" class="absolute top-5 right-10 w-20 h-20 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1614632537193-23e1b0eb2f31?w=80&h=80&fit=crop&crop=center" alt="Cricket" class="absolute bottom-5 left-10 w-24 h-24 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=80&h=80&fit=crop&crop=center" alt="Table Tennis" class="absolute top-1/3 left-20 w-16 h-16 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1587282448848-22a92b32f058?w=80&h=80&fit=crop&crop=center" alt="Chess" class="absolute bottom-1/3 right-20 w-20 h-20 rounded-full object-cover">
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                <span class="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                    Trusted by Sports Community
+                </span>
+            </h2>
+            <p class="text-xl text-slate-300 max-w-2xl mx-auto">Join thousands of athletes already training with our partner academies</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="group text-center">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="text-5xl font-black bg-gradient-to-r from-blue-600 to-green-500 bg-clip-text text-transparent mb-3">1000+</div>
+                    <div class="text-white font-medium">Sports Academies</div>
+                    <div class="text-slate-400 text-sm mt-1">Across India</div>
+                </div>
+            </div>
+            <div class="group text-center">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="text-5xl font-black bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent mb-3">50+</div>
+                    <div class="text-white font-medium">Sports Disciplines</div>
+                    <div class="text-slate-400 text-sm mt-1">All Sports</div>
+                </div>
+            </div>
+            <div class="group text-center">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="text-5xl font-black bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-3">1500+</div>
+                    <div class="text-white font-medium">Expert Coaches</div>
+                    <div class="text-slate-400 text-sm mt-1">Certified Professionals</div>
+                </div>
+            </div>
+            <div class="group text-center">
+                <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-600/50">
+                    <div class="text-5xl font-black bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent mb-3">50K+</div>
+                    <div class="text-white font-medium">Athletes</div>
+                    <div class="text-slate-400 text-sm mt-1">Excelling Daily</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Sports -->
+<section class="py-20 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"></div>
+    </div>
+    
+    <!-- Sports Icons Background -->
+    <div class="absolute inset-0 opacity-5">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=120&h=120&fit=crop&crop=center" alt="Yoga" class="absolute top-10 right-10 w-32 h-32 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1461896835935-36a16643b292?w=120&h=120&fit=crop&crop=center" alt="Athletics" class="absolute bottom-10 left-10 w-36 h-36 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1542714184-75f2b5c688c5?w=120&h=120&fit=crop&crop=center" alt="Boxing" class="absolute top-1/2 left-20 w-28 h-28 rounded-full object-cover">
+        <img src="https://images.unsplash.com/photo-1579952363873-27d3bfedf4b1?w=120&h=120&fit=crop&crop=center" alt="Gymnastics" class="absolute bottom-1/3 right-20 w-32 h-32 rounded-full object-cover">
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center bg-gradient-to-r from-pink-500 to-rose-500 text-white px-6 py-3 rounded-full text-sm font-bold mb-6 shadow-2xl">
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-.39 0z"/>
+                    </svg>
+                    50+ Sports for All
+                </span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+                <span class="bg-gradient-to-r from-white to-pink-200 bg-clip-text text-transparent">
+                    Popular Sports
+                </span>
+            </h2>
+            <p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                Choose from a wide variety of sports disciplines taught by certified coaches and world-class mentors
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+            <div class="group cursor-pointer">
+                <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-xs hover:from-slate-600/50 hover:to-slate-500/50 rounded-3xl p-8 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl border border-slate-500/50">
+                    <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=120&h=120&fit=crop&crop=center" alt="Tennis Court" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    <div class="font-bold text-white text-lg">Tennis</div>
+                    <div class="text-slate-400 text-sm mt-1">150+ Academies</div>
+                </div>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-xs hover:from-slate-600/50 hover:to-slate-500/50 rounded-3xl p-8 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl border border-slate-500/50">
+                    <img src="https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg" alt="Swimming Pool" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    <div class="font-bold text-white text-lg">Swimming</div>
+                    <div class="text-slate-400 text-sm mt-1">180+ Academies</div>
+                </div>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-xs hover:from-slate-600/50 hover:to-slate-500/50 rounded-3xl p-8 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl border border-slate-500/50">
+                    <img src="https://images.pexels.com/photos/358042/pexels-photo-358042.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Basketball Court" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    <div class="font-bold text-white text-lg">Basketball</div>
+                    <div class="text-slate-400 text-sm mt-1">120+ Academies</div>
+                </div>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-xs hover:from-slate-600/50 hover:to-slate-500/50 rounded-3xl p-8 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl border border-slate-500/50">
+                    <img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=120&h=120&fit=crop&crop=center" alt="Volleyball Game" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    <div class="font-bold text-white text-lg">Volleyball</div>
+                    <div class="text-slate-400 text-sm mt-1">90+ Academies</div>
+                </div>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-xs hover:from-slate-600/50 hover:to-slate-500/50 rounded-3xl p-8 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl border border-slate-500/50">
+                    <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=120&h=120&fit=crop&crop=center" alt="Badminton Court" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    <div class="font-bold text-white text-lg">Badminton</div>
+                    <div class="text-slate-400 text-sm mt-1">250+ Academies</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Sports Row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+            <div class="group cursor-pointer">
+                <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-xs hover:from-slate-600/50 hover:to-slate-500/50 rounded-3xl p-8 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl border border-slate-500/50">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=120&h=120&fit=crop&crop=center" alt="Yoga Session" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    <div class="font-bold text-white text-lg">Yoga</div>
+                    <div class="text-slate-400 text-sm mt-1">200+ Academies</div>
+                </div>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-xs hover:from-slate-600/50 hover:to-slate-500/50 rounded-3xl p-8 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl border border-slate-500/50">
+                    <img src="https://images.pexels.com/photos/3764011/pexels-photo-3764011.jpeg" alt="Athletics Track" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    <div class="font-bold text-white text-lg">Athletics</div>
+                    <div class="text-slate-400 text-sm mt-1">80+ Academies</div>
+                </div>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-xs hover:from-slate-600/50 hover:to-slate-500/50 rounded-3xl p-8 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl border border-slate-500/50">
+                    <img src="https://images.pexels.com/photos/4761794/pexels-photo-4761794.jpeg" alt="Boxing Ring" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    <div class="font-bold text-white text-lg">Boxing</div>
+                    <div class="text-slate-400 text-sm mt-1">60+ Academies</div>
+                </div>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-xs hover:from-slate-600/50 hover:to-slate-500/50 rounded-3xl p-8 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl border border-slate-500/50">
+                    <img src="https://images.pexels.com/photos/13425678/pexels-photo-13425678.jpeg" alt="Gymnastics" class="w-24 h-24 rounded-2xl object-cover shadow-xl hover:scale-105 transition-transform">
+                    <div class="font-bold text-white text-lg">Gymnastics</div>
+                    <div class="text-slate-400 text-sm mt-1">45+ Academies</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Academies -->
+<section class="py-20 bg-gradient-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600 via-purple-600 to-green-600"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
+            <div class="flex-1">
+                <div class="inline-flex items-center bg-gradient-to-r from-orange-100 to-red-100 text-orange-800 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                    <span class="flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l2.8-2.034a1 1 0 011.175 0l2.8 2.034c.784.57 1.838-.197 1.539-1.118l-1.07-3.292a1 1 0 00-.364-1.118L16.863 9.81c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        Top Rated Academies
+                    </span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">
+                    <span class="bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                        Featured Academies
+                    </span>
+                </h2>
+                <p class="text-xl text-slate-600 max-w-2xl leading-relaxed">
+                    Hand-picked sports training centers with exceptional coaching and world-class facilities
+                </p>
+            </div>
+            <a href="{% url 'academies:explore' %}" class="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                Explore All
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
+        </div>
+        
+        {% if featured_academies %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for academy in featured_academies %}
+                    <div class="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 overflow-hidden border border-slate-100">
+                        <!-- Academy Image -->
+                        <div class="h-64 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900"></div>
+                            
+                            <!-- Sport-specific gradient backgrounds -->
+                            {% if academy.sport == 'badminton' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-500"></div>
+                            {% elif academy.sport == 'swimming' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-teal-600"></div>
+                            {% elif academy.sport == 'tennis' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-yellow-500 to-orange-600"></div>
+                            {% elif academy.sport == 'football' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-green-600 to-emerald-500"></div>
+                            {% elif academy.sport == 'cricket' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-red-600 to-pink-500"></div>
+                            {% elif academy.sport == 'basketball' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-orange-600 to-red-500"></div>
+                            {% elif academy.sport == 'volleyball' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-purple-600 to-pink-500"></div>
+                            {% elif academy.sport == 'table_tennis' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 to-blue-500"></div>
+                            {% elif academy.sport == 'chess' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900"></div>
+                            {% elif academy.sport == 'yoga' %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500"></div>
+                            {% else %}
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600"></div>
+                            {% endif %}
+                            
+                            <div class="absolute inset-0 bg-black/20"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                {% if academy.sport == 'badminton' %}
+                                    <span class="text-9xl drop-shadow-2xl">🏸</span>
+                                {% elif academy.sport == 'swimming' %}
+                                    <span class="text-9xl drop-shadow-2xl">🏊</span>
+                                {% elif academy.sport == 'tennis' %}
+                                    <span class="text-9xl drop-shadow-2xl">🎾</span>
+                                {% elif academy.sport == 'football' %}
+                                    <span class="text-9xl drop-shadow-2xl">⚽</span>
+                                {% elif academy.sport == 'cricket' %}
+                                    <span class="text-9xl drop-shadow-2xl">🏏</span>
+                                {% elif academy.sport == 'basketball' %}
+                                    <span class="text-9xl drop-shadow-2xl">🏀</span>
+                                {% elif academy.sport == 'volleyball' %}
+                                    <span class="text-9xl drop-shadow-2xl">🏐</span>
+                                {% elif academy.sport == 'table_tennis' %}
+                                    <span class="text-9xl drop-shadow-2xl">🏓</span>
+                                {% elif academy.sport == 'chess' %}
+                                    <span class="text-9xl drop-shadow-2xl">♟️</span>
+                                {% elif academy.sport == 'yoga' %}
+                                    <span class="text-9xl drop-shadow-2xl">🧘</span>
+                                {% else %}
+                                    <span class="text-9xl drop-shadow-2xl">🏆</span>
+                                {% endif %}
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-white/95 backdrop-blur-xs text-slate-800 px-4 py-2 rounded-full text-sm font-bold shadow-lg border border-white/50">
+                                    {{ academy.get_sport_display }}
+                                </span>
+                            </div>
+                            <!-- Rating Badge -->
+                            <div class="absolute top-4 left-4">
+                                <div class="flex items-center bg-yellow-400/90 backdrop-blur-xs text-slate-900 px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l2.8-2.034a1 1 0 011.175 0l2.8 2.034c.784.57 1.838-.197 1.539-1.118l-1.07-3.292a1 1 0 00-.364-1.118L16.863 9.81c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    4.8
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Academy Info -->
+                        <div class="p-6">
+                            <h3 class="text-xl font-black text-slate-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-1">
+                                {{ academy.name }}
+                            </h3>
+                            
+                            <div class="space-y-3 mb-4">
+                                <div class="flex items-center text-slate-600">
+                                    <svg class="w-5 h-5 mr-3 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    <span class="text-sm line-clamp-1">{{ academy.location }}, {{ academy.city }}</span>
+                                </div>
+                                
+                                <div class="flex items-center text-slate-600">
+                                    <svg class="w-5 h-5 mr-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                    <span class="text-sm">{{ academy.coach_info }}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center pt-4 border-t border-slate-200">
+                                <div>
+                                    <div class="text-xs text-slate-500 mb-1 font-medium">Monthly Fees</div>
+                                    <div class="text-2xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">₹{{ academy.fees }}</div>
+                                </div>
+                                <a href="{% url 'academies:explore' %}" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-2xl font-bold transition-all transform hover:scale-105 shadow-lg">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="bg-white rounded-3xl shadow-xl p-16 text-center border border-slate-100">
+                <div class="text-8xl mb-6">🏃</div>
+                <h3 class="text-3xl font-black text-slate-900 mb-4">No Featured Academies Yet</h3>
+                <p class="text-xl text-slate-600 mb-8 max-w-md mx-auto">Check back soon for amazing sports academies with world-class coaching!</p>
+                <a href="{% url 'academies:explore' %}" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                    Browse All Academies
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-32 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white relative overflow-hidden">
+    <!-- Animated Background -->
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-green-600/20 animate-pulse"></div>
+        <div class="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-bounce"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-2xl"></div>
+    </div>
+    
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center bg-gradient-to-r from-yellow-400 to-orange-500 text-slate-900 px-6 py-3 rounded-full text-sm font-bold mb-8 shadow-2xl">
+            <span class="flex items-center gap-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                </svg>
+                    Start Your Journey Today
+                </span>
+        </div>
+        
+        <h2 class="text-5xl md:text-7xl font-black mb-8 leading-tight">
+            <span class="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                Ready to Transform
+            </span>
+            <br>
+            <span class="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                Your Athletic Dreams?
+            </span>
+        </h2>
+        <p class="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed font-light mb-12">
+            Join thousands of athletes who discovered their perfect training ground. 
+            From beginner to champion, we have the right academy waiting for you.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            {% if not user.is_authenticated %}
+                <a href="{% url 'accounts:signup' %}" class="group bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-10 py-5 rounded-2xl font-bold transition-all transform hover:scale-110 shadow-2xl flex items-center gap-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Get Started Free
+                    <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            {% endif %}
+            <a href="{% url 'academies:explore' %}" class="group bg-white/10 backdrop-blur-md border-2 border-white/30 hover:bg-white hover:text-slate-900 px-10 py-5 rounded-2xl font-bold transition-all transform hover:scale-105 flex items-center gap-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Explore Academies
+            </a>
+        </div>
+        
+        <!-- Trust Indicators -->
+        <div class="flex flex-wrap justify-center gap-8 mt-12">
+            <div class="flex items-center gap-2 text-slate-300">
+                <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm font-medium">Free Registration</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-300">
+                <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 .534-.045 1.034-.123 1.511l.331.737c.05.12.074.244.074.372 0 .29-.124.547-.372.689l-6.5 3.5a1.001 1.001 0 01-.956 0l-6.5-3.5a1.002 1.002 0 01-.372-.689c0-.128.024-.252.074-.372l.331-.737C3.27 6.245 3.225 5.745 3.225 5.211c0-.681.056-1.351.166-2.001zM2.5 8.558V17a1 1 0 001.555.832l6.5-4.331a1 1 0 00.445-.832V8.558a1 1 0 00-.445-.832L4.055 3.395A1 1 0 002.5 4.227v4.331z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm font-medium">Verified Academies</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-300">
+                <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                </svg>
+                <span class="text-sm font-medium">50K+ Athletes</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-16 relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600 via-purple-600 to-green-600"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            <div class="lg:col-span-2">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-r from-blue-600 to-green-500 p-3 rounded-2xl mr-3">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-.39 0z"/>
+                        </svg>
+                    </div>
+                    <span class="text-3xl font-black bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">PlayFind</span>
+                </div>
+                <p class="text-slate-400 text-lg leading-relaxed mb-6 max-w-md">
+                    Your trusted platform for discovering world-class sports academies. 
+                    Connect with expert coaches and transform your athletic journey.
+                </p>
+                <!-- Social Links -->
+                <div class="flex gap-4">
+                    <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 00-2.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-2.184 2.725 9.7 9.7 0 01-5.632-2.068 4.92 4.92 0 002.163-2.723 10.078 10.078 0 012.825.775 4.958 4.958 0 002.163-2.723 9.7 9.7 0 01-2.825-.775 4.92 4.92 0 002.163 2.723 10.078 10.078 0 012.825-.775 4.92 4.92 0 00-2.163-2.723 9.7 9.7 0 012.825.775z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="bg-white/10 hover:bg-white/20 p-3 rounded-xl transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 3.707.07.329.123.695.123 1.084 0 1.112-.418 1.112-1.112 0-.27-.058-.543-.167-.781l-.03-.057a1.996 1.996 0 00-.418-.55 1.996 1.996 0 00-.55-.418l-.057-.03a1.736 1.736 0 00-.781-.167c-.389 0-.755.053-1.084.123-.477.148-1.019.523-1.511.923-.148.266-.058.543-.058.811 0 .694.418 1.112 1.112 1.112 0 .389-.053.755-.123 1.084-.4.477-.523-1.019-.923-1.511-.266-.148-.543-.058-.811-.058zm0 3.658c-.389 0-.755.053-1.084.123-.477.148-1.019.523-1.511.923-.148.266-.058.543-.058.811 0 .694.418 1.112 1.112 1.112 0 .389-.053.755-.123 1.084-.4.477-.523-1.019-.923-1.511-.266-.148-.543-.058-.811-.058z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="font-black text-white mb-6 text-lg">Quick Links</h3>
+                <ul class="space-y-3">
+                    <li><a href="{% url 'academies:home' %}" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                        Home
+                    </a></li>
+                    <li><a href="{% url 'academies:explore' %}" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        Explore Academies
+                    </a></li>
+                    <li><a href="{% url 'accounts:signup' %}" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                        </svg>
+                        Sign Up
+                    </a></li>
+                    <li><a href="{% url 'accounts:login' %}" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                        </svg>
+                        Login
+                    </a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="font-black text-white mb-6 text-lg">Support</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        About Us
+                    </a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Contact
+                    </a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0-5.591 3.824-10.29 9-11.622 5.176 1.332 9 6.03 9 11.622 0 1.042.133 2.062.382 3.038.682M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Privacy Policy
+                    </a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Terms of Service
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="border-t border-slate-700 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-400 text-center">
+                    © 2024 PlayFind. All rights reserved. Made with 
+                    <span class="text-red-500">❤️</span> for sports enthusiasts worldwide.
+                </p>
+                <div class="flex items-center gap-6">
+                    <span class="text-slate-500 text-sm">Payment Partners:</span>
+                    <div class="flex gap-3">
+                        <div class="bg-white/10 px-3 py-2 rounded-lg text-xs font-medium">VISA</div>
+                        <div class="bg-white/10 px-3 py-2 rounded-lg text-xs font-medium">MC</div>
+                        <div class="bg-white/10 px-3 py-2 rounded-lg text-xs font-medium">UPI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

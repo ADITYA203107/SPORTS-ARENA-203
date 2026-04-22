@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+
+{% block title %}Explore Academies - Sports Academy Discovery Platform{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-96 overflow-hidden text-white">
+    <!-- Video Background -->
+    <div class="absolute inset-0">
+        <video 
+            autoplay 
+            loop 
+            muted 
+            playsinline
+            class="w-full h-full object-cover"
+            poster=""
+        >
+            <source src="https://videos.pexels.com/video-files/9945079/9945079-uhd_2560_1440_24fps.mp4" type="video/mp4">
+            <img src="https://images.pexels.com/photos/290416/pexels-photo-290416.jpeg" alt="Sports Academy" class="w-full h-full object-cover">
+        </video>
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-xs"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70"></div>
+    </div>
+    <!-- Content -->
+    <div class="relative h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-3 rounded-full text-sm font-bold mb-8 shadow-2xl">
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
+                    </svg>
+                    Discover Your Perfect Academy
+                </span>
+            </div>
+            
+            <h1 class="text-5xl md:text-6xl font-black mb-6 leading-tight">
+                <span class="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent drop-shadow-lg">
+                    Explore Sports
+                </span>
+                <br>
+                <span class="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent drop-shadow-lg">
+                    Academies
+                </span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed font-light mb-12">
+                Find the perfect sports academy from our extensive network of world-class training centers
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Search and Filters Section -->
+<section class="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-600 via-purple-600 to-green-600"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-6">
+                <span class="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                    Find Your Academy
+                </span>
+            </h2>
+            <p class="text-xl text-slate-300 max-w-2xl mx-auto">
+                Search and filter to find the perfect sports academy for your needs
+            </p>
+        </div>
+        
+        <!-- Search Form -->
+        <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-3xl p-8 border border-slate-600/50 shadow-2xl">
+            <form method="get" class="space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Search Bar -->
+                    <div class="lg:col-span-2">
+                        <label for="search" class="block text-sm font-bold text-white mb-3">
+                            Search Academies
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="search" 
+                                value="{{ search_query }}"
+                                placeholder="Search by name, sport, or coach..." 
+                                class="w-full pl-12 pr-4 py-4 bg-slate-900/50 border border-slate-600 rounded-2xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            >
+                        </div>
+                    </div>
+                    
+                    <!-- Location Filter -->
+                    <div>
+                        <label for="location" class="block text-sm font-bold text-white mb-3">
+                            Location
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                            <select 
+                                name="location" 
+                                class="w-full pl-12 pr-4 py-4 bg-slate-900/50 border border-slate-600 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all appearance-none"
+                            >
+                                <option value="">All Locations</option>
+                                {% for city in cities %}
+                                    <option value="{{ city }}" {% if location_filter == city %}selected{% endif %}>
+                                        {{ city }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <button type="submit" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-8 py-4 rounded-2xl font-bold transition-all transform hover:scale-105 shadow-2xl flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        Search Academies
+                    </button>
+                    {% if search_query or location_filter %}
+                        <a href="{% url 'academies:explore' %}" class="bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white px-8 py-4 rounded-2xl font-bold transition-all transform hover:scale-105 shadow-2xl flex items-center gap-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            Clear Filters
+                        </a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Results Section -->
+<section class="py-20 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 text-white relative overflow-hidden">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Results Count -->
+        <div class="mb-12 text-center">
+            <div class="inline-flex items-center bg-gradient-to-r from-blue-500/20 to-green-500/20 border border-blue-500/30 text-white px-6 py-3 rounded-full text-lg font-bold">
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000 2H6a2 2 0 100 4h2a2 2 0 100-4h2a1 1 0 100-2 2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2h-2a1 1 0 100 2h2v11H6V5z" clip-rule="evenodd"/>
+                    </svg>
+                    Found {{ academies|length }} academy{{ academies|length|pluralize }}
+                    {% if search_query or location_filter %}
+                        matching your criteria
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+        <!-- Academy Cards Grid -->
+        {% if academies %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for academy in academies %}
+                    <div class="group bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-3xl overflow-hidden border border-slate-600/50 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl">
+                        <!-- Academy Image -->
+                        <div class="relative h-56 overflow-hidden">
+                            {% if academy.image %}
+                                <img src="{{ academy.image.url }}" alt="{{ academy.name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            {% else %}
+                                {% if academy.sport == 'tennis' %}
+                                    <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800&h=600&fit=crop&crop=center" alt="Tennis Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'swimming' %}
+                                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center" alt="Swimming Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'basketball' %}
+                                    <img src="https://images.pexels.com/photos/358042/pexels-photo-358042.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Basketball Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'volleyball' %}
+                                    <img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&h=600&fit=crop&crop=center" alt="Volleyball Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'badminton' %}
+                                    <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800&h=600&fit=crop&crop=center" alt="Badminton Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'yoga' %}
+                                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=600&fit=crop&crop=center" alt="Peaceful Yoga Studio" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'athletics' %}
+                                    <img src="https://images.unsplash.com/photo-1461896835935-36a16643b292?w=800&h=600&fit=crop&crop=center" alt="Athletics Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'boxing' %}
+                                    <img src="https://images.unsplash.com/photo-1542714184-75f2b5c688c5?w=800&h=600&fit=crop&crop=center" alt="Boxing Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'gymnastics' %}
+                                    <img src="https://images.unsplash.com/photo-1579952363873-27d3bfedf4b1?w=800&h=600&fit=crop&crop=center" alt="Gymnastics Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'cricket' %}
+                                    <img src="https://images.pexels.com/photos/3628912/pexels-photo-3628912.jpeg" alt="Cricket Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'football' %}
+                                    <img src="https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Football Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'table_tennis' %}
+                                    <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800&h=600&fit=crop&crop=center" alt="Table Tennis Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% elif academy.sport == 'chess' %}
+                                    <img src="https://images.pexels.com/photos/277124/pexels-photo-277124.jpeg" alt="Chess Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% else %}
+                                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center" alt="Sports Academy Infrastructure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                {% endif %}
+                            {% endif %}
+                            
+                            <!-- Sport Badge Overlay -->
+                            <div class="absolute top-4 right-4">
+                                <span class="bg-gradient-to-r from-blue-600 to-green-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-2xl">
+                                    {{ academy.get_sport_display }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Academy Info -->
+                        <div class="p-8">
+                            <!-- Name -->
+                            <h3 class="text-2xl font-black text-white mb-4 group-hover:text-blue-400 transition-colors">
+                                {{ academy.name }}
+                            </h3>
+                            
+                            <!-- Location -->
+                            <div class="flex items-center text-slate-300 mb-3">
+                                <svg class="w-5 h-5 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span>{{ academy.location }}, {{ academy.city }}</span>
+                            </div>
+                            
+                            <!-- Coach Info -->
+                            <div class="flex items-center text-slate-300 mb-4">
+                                <svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                                <span>{{ academy.coach_info }}</span>
+                            </div>
+                            
+                            <!-- Description -->
+                            <p class="text-slate-400 text-sm mb-6 line-clamp-3">
+                                {{ academy.description|truncatewords:20 }}
+                            </p>
+                            
+                            <!-- Fees and Action -->
+                            <div class="flex justify-between items-center pt-6 border-t border-slate-600/50">
+                                <div>
+                                    <span class="text-slate-400 text-sm block mb-1">Monthly Fees</span>
+                                    <p class="text-3xl font-black bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
+                                        {{ academy.fees }}
+                                    </p>
+                                </div>
+                                <a href="#" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- No Results State -->
+            <div class="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-xs rounded-3xl p-16 text-center border border-slate-600/50">
+                <div class="w-32 h-32 mx-auto mb-8 bg-gradient-to-r from-blue-600 to-green-500 rounded-full flex items-center justify-center shadow-2xl">
+                    <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-3xl font-black text-white mb-4">No Academies Found</h3>
+                <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+                    {% if search_query or location_filter %}
+                        Try adjusting your search criteria or filters to find more academies
+                    {% else %}
+                        No academies are available at the moment. Check back soon!
+                    {% endif %}
+                </p>
+                {% if search_query or location_filter %}
+                    <a href="{% url 'academies:explore' %}" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-8 py-4 rounded-2xl font-bold transition-all transform hover:scale-105 shadow-2xl inline-flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                        Clear Filters
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Back to Home -->
+<section class="py-12 bg-gradient-to-br from-slate-900 to-slate-800 text-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <a href="{% url 'academies:home' %}" class="inline-flex items-center gap-3 text-white hover:text-blue-400 font-bold text-lg transition-colors group">
+            <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to Home
+        </a>
+    </div>
+</section>
+{% endblock %}
