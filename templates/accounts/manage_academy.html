@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Academy - Sports Academy Discovery Platform{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gradient-to-b from-slate-900 to-slate-800 min-h-screen p-6 border-r border-slate-700/50 fixed left-0 top-0">
+            <!-- Logo -->
+            <div class="flex items-center mb-8">
+                <div class="bg-gradient-to-r from-blue-600 to-green-500 p-2 rounded-xl mr-3 shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-black bg-gradient-to-r from-blue-600 to-green-500 bg-clip-text text-transparent">SPORTS ARENA</span>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="space-y-2">
+                <a href="{% url 'accounts:dashboard' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="{% url 'accounts:manage_academy' %}" class="flex items-center px-4 py-3 bg-gradient-to-r from-blue-600 to-green-500 text-white rounded-xl font-bold shadow-xl">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                    </svg>
+                    Manage Academy
+                </a>
+                <a href="{% url 'accounts:manage_coaches' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                    </svg>
+                    Manage Coaches
+                </a>
+                <a href="{% url 'accounts:upload_photos' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                    </svg>
+                    Upload Photos
+                </a>
+                <a href="{% url 'accounts:view_bookings' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                    </svg>
+                    View Bookings
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-black text-slate-800 mb-2">Manage Academy</h1>
+                    <p class="text-slate-600">Add, edit, or delete your sports academies</p>
+                </div>
+                <button onclick="document.getElementById('addAcademyForm').classList.toggle('hidden')" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                    + Add New Academy
+                </button>
+            </div>
+            
+            <!-- Add Academy Form -->
+            <div id="addAcademyForm" class="hidden bg-white rounded-2xl shadow-xl border border-slate-200 p-6 mb-8">
+                <h2 class="text-xl font-black text-slate-800 mb-6">Add New Academy</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Academy Name</label>
+                            {{ form.name }}
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Sport</label>
+                            {{ form.sport }}
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Location</label>
+                            {{ form.location }}
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">City</label>
+                            {{ form.city }}
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Monthly Fees</label>
+                            {{ form.fees }}
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Coach Name</label>
+                            <div class="flex gap-2">
+                                {{ form.coach_name }}
+                                <button type="button" onclick="openCoachModal()" class="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white px-4 py-3 rounded-xl font-bold transition-all">
+                                    Select
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Coach Experience (years)</label>
+                            {{ form.coach_experience }}
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label class="block text-slate-700 text-sm font-bold mb-2">Description</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="mt-6">
+                        <label class="block text-slate-700 text-sm font-bold mb-2">Academy Image</label>
+                        {{ form.image }}
+                    </div>
+                    <div class="mt-6 flex gap-4">
+                        <button type="button" onclick="document.getElementById('addAcademyForm').classList.add('hidden')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 px-6 py-3 rounded-xl font-bold transition-all">
+                            Cancel
+                        </button>
+                        <button type="submit" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                            Add Academy
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Academies List -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                <div class="p-6 border-b border-slate-200">
+                    <h2 class="text-xl font-black text-slate-800">Your Academies</h2>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">Name</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">Location</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">Sport</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">Fees</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            {% for academy in academies %}
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        {% if academy.image %}
+                                        <img src="{{ academy.image.url }}" alt="{{ academy.name }}" class="w-12 h-12 rounded-xl object-cover mr-4">
+                                        {% else %}
+                                        <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-green-500 flex items-center justify-center text-white font-bold mr-4">{{ academy.name|slice:":2"|upper }}</div>
+                                        {% endif %}
+                                        <div class="text-slate-800 font-bold">{{ academy.name }}</div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-slate-600">{{ academy.location }}, {{ academy.city }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="bg-gradient-to-r from-blue-600 to-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">{{ academy.get_sport_display }}</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-slate-800 font-bold">{{ academy.fees }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex gap-2">
+                                        <button class="bg-blue-100 hover:bg-blue-200 text-blue-600 px-3 py-1 rounded-lg text-sm font-bold transition-all">Edit</button>
+                                        <button class="bg-red-100 hover:bg-red-200 text-red-600 px-3 py-1 rounded-lg text-sm font-bold transition-all">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="px-6 py-12 text-center text-slate-500">
+                                    <p class="text-lg font-bold">No academies found</p>
+                                    <p class="text-sm">Click "Add New Academy" to get started</p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Coach Selection Modal -->
+    <div id="coachModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-2xl max-w-2xl w-full mx-4 shadow-2xl border border-slate-200 transform transition-all">
+            <div class="p-6 border-b border-slate-200">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-black text-slate-800">Select Coach</h2>
+                    <button onclick="closeCoachModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <div class="space-y-3 max-h-96 overflow-y-auto">
+                    {% for coach in coaches %}
+                    <div onclick="selectCoach(this)" data-coach-name="{{ coach.name }}" data-coach-experience="{{ coach.experience }}" class="p-4 bg-slate-50 rounded-xl cursor-pointer hover:bg-slate-100 transition-all border border-slate-200 hover:border-blue-500">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
+                                    {{ coach.name|slice:":2"|upper }}
+                                </div>
+                                <div>
+                                    <p class="text-slate-800 font-bold">{{ coach.name }}</p>
+                                    <p class="text-slate-600 text-sm">{{ coach.get_sport_display }} - {{ coach.experience }} years</p>
+                                </div>
+                            </div>
+                            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-slate-500 text-center py-8">No coaches available. Add coaches first.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function openCoachModal() {
+            document.getElementById('coachModal').classList.remove('hidden');
+            document.getElementById('coachModal').classList.add('flex');
+        }
+        
+        function closeCoachModal() {
+            document.getElementById('coachModal').classList.add('hidden');
+            document.getElementById('coachModal').classList.remove('flex');
+        }
+        
+        function selectCoach(element) {
+            const coachName = element.getAttribute('data-coach-name');
+            const coachExperience = element.getAttribute('data-coach-experience');
+            document.getElementById('id_coach_name').value = coachName;
+            document.getElementById('id_coach_experience').value = coachExperience;
+            closeCoachModal();
+        }
+        
+        document.getElementById('coachModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCoachModal();
+            }
+        });
+    </script>
+</div>
+{% endblock %}

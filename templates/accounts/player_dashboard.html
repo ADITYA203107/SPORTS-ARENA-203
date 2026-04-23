@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}Player Dashboard - Sports Academy Discovery Platform{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <div class="p-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-black text-slate-800 mb-2">Welcome, {{ user.username }}!</h1>
+            <p class="text-slate-600">Discover and book the best sports academies</p>
+        </div>
+        
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Total Academies -->
+            <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-600 text-sm font-medium mb-1">Available Academies</p>
+                        <p class="text-3xl font-black text-slate-800">{{ academies.count }}</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-600 to-green-500 w-12 h-12 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- My Bookings -->
+            <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-600 text-sm font-medium mb-1">My Bookings</p>
+                        <p class="text-3xl font-black text-slate-800">{{ user.bookings.count }}</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-purple-600 to-pink-500 w-12 h-12 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Favorites -->
+            <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-600 text-sm font-medium mb-1">Favorites</p>
+                        <p class="text-3xl font-black text-slate-800">0</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-orange-500 to-red-500 w-12 h-12 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Academies Grid -->
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+            <div class="p-6 border-b border-slate-200">
+                <h2 class="text-xl font-black text-slate-800">Available Academies</h2>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for academy in academies %}
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        {% if academy.image %}
+                        <img src="{{ academy.image.url }}" alt="{{ academy.name }}" class="w-full h-48 object-cover">
+                        {% else %}
+                        <div class="w-full h-48 bg-gradient-to-r from-blue-600 to-green-500 flex items-center justify-center">
+                            <span class="text-white text-4xl font-black">{{ academy.name|slice:":2"|upper }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-lg font-black text-slate-800">{{ academy.name }}</h3>
+                                <span class="bg-gradient-to-r from-blue-600 to-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">{{ academy.get_sport_display }}</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-3">{{ academy.description|truncatewords:15 }}</p>
+                            <div class="flex items-center gap-2 text-slate-600 text-sm mb-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                </svg>
+                                {{ academy.location }}, {{ academy.city }}
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-800 font-bold mb-4">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+                                </svg>
+                                ₹{{ academy.fees }}/month
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="{% url 'academies:detail' academy.id %}" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-xl text-sm font-bold transition-all text-center">
+                                    View Details
+                                </a>
+                                <button onclick="openBookingModal(this)" data-academy-name="{{ academy.name }}" data-academy-id="{{ academy.id }}" class="flex-1 bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all">
+                                    Book Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-slate-500 text-lg font-bold">No academies available</p>
+                        <p class="text-slate-400 text-sm">Check back later for new academies</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="bg-white rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-200 transform transition-all">
+            <div class="p-6 border-b border-slate-200">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-black text-slate-800">Book Academy</h2>
+                    <button onclick="closeBookingModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <form id="bookingForm" method="post" action="{% url 'academies:book_academy' %}">
+                    {% csrf_token %}
+                    <input type="hidden" id="academyId" name="academy_id" value="">
+                    <div class="mb-4">
+                        <label class="block text-slate-700 text-sm font-bold mb-2">Academy</label>
+                        <input type="text" id="academyName" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-700 text-sm font-bold mb-2">Booking Date</label>
+                        <input type="date" name="booking_date" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-slate-700 text-sm font-bold mb-2">Notes</label>
+                        <textarea name="notes" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24" placeholder="Any special requirements..."></textarea>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" onclick="closeBookingModal()" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 px-6 py-3 rounded-xl font-bold transition-all">
+                            Cancel
+                        </button>
+                        <button type="submit" class="flex-1 bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                            Confirm Booking
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function openBookingModal(element) {
+            const academyName = element.getAttribute('data-academy-name');
+            const academyId = element.getAttribute('data-academy-id');
+            document.getElementById('academyName').value = academyName;
+            document.getElementById('academyId').value = academyId;
+            document.getElementById('bookingModal').classList.remove('hidden');
+            document.getElementById('bookingModal').classList.add('flex');
+        }
+        
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+            document.getElementById('bookingModal').classList.remove('flex');
+        }
+        
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBookingModal();
+            }
+        });
+    </script>
+</div>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Photos - Sports Academy Discovery Platform{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gradient-to-b from-slate-900 to-slate-800 min-h-screen p-6 border-r border-slate-700/50 fixed left-0 top-0">
+            <!-- Logo -->
+            <div class="flex items-center mb-8">
+                <div class="bg-gradient-to-r from-blue-600 to-green-500 p-2 rounded-xl mr-3 shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-black bg-gradient-to-r from-blue-600 to-green-500 bg-clip-text text-transparent">SPORTS ARENA</span>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="space-y-2">
+                <a href="{% url 'accounts:dashboard' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="{% url 'accounts:manage_academy' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                    </svg>
+                    Manage Academy
+                </a>
+                <a href="{% url 'accounts:manage_coaches' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                    </svg>
+                    Manage Coaches
+                </a>
+                <a href="{% url 'accounts:upload_photos' %}" class="flex items-center px-4 py-3 bg-gradient-to-r from-blue-600 to-green-500 text-white rounded-xl font-bold shadow-xl">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                    </svg>
+                    Upload Photos
+                </a>
+                <a href="{% url 'accounts:view_bookings' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                    </svg>
+                    View Bookings
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-black text-slate-800 mb-2">Upload Photos</h1>
+                <p class="text-slate-600">Upload and manage academy photos</p>
+            </div>
+            
+            <!-- Upload Form -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 mb-8">
+                <h2 class="text-xl font-black text-slate-800 mb-6">Upload New Photo</h2>
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Select Academy</label>
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                {% for academy in academies %}
+                                <option>{{ academy.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Choose Image</label>
+                            <input type="file" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button type="submit" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                            Upload Photo
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Photo Gallery -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                <div class="p-6 border-b border-slate-200">
+                    <h2 class="text-xl font-black text-slate-800">Photo Gallery</h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {% for academy in academies %}
+                        {% if academy.image %}
+                        <div class="relative group">
+                            <img src="{{ academy.image.url }}" alt="{{ academy.name }}" class="w-full h-48 object-cover rounded-xl">
+                            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                                <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all">Delete</button>
+                            </div>
+                            <p class="text-slate-600 text-sm mt-2 font-bold">{{ academy.name }}</p>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

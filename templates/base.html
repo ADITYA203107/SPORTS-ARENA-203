@@ -31,60 +31,93 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body class="bg-slate-50">
-    <!-- Navbar -->----
-    <nav class="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-slate-200">
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl sticky top-0 z-50 border-b-4 border-gradient-to-r from-blue-500 via-purple-500 to-green-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo Box -->
                 <div class="flex items-center">
-                    <a href="{% url 'academies:home' %}" class="flex-shrink-0 flex items-center group">
-                        <div class="bg-gradient-to-r from-blue-600 to-green-500 p-2 rounded-xl mr-3 shadow-lg group-hover:shadow-xl transition-all">
+                    <a href="{% url 'academies:home' %}" class="flex-shrink-0 flex items-center group bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl px-4 py-2 hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300 shadow-lg">
+                        <div class="bg-gradient-to-r from-blue-600 to-green-500 p-2 rounded-xl mr-3 shadow-lg">
                             <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                             </svg>
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-2xl font-black bg-gradient-to-r from-blue-600 to-green-500 bg-clip-text text-transparent">SPORTS ARENA</span>
-                            <span class="text-xs text-slate-500 font-medium">Discover Excellence</span>
+                            <span class="text-2xl font-black bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">SPORTS ARENA</span>
+                            <span class="text-xs text-slate-300 font-medium">Discover Excellence</span>
                         </div>
                     </a>
-                    
-                    <!-- Quick Links -->
-                    <div class="hidden md:flex items-center ml-8 space-x-6">
-                        <a href="#" class="text-slate-600 hover:text-blue-600 text-sm font-medium transition-colors">Coaching</a>
-                        <a href="#" class="text-slate-600 hover:text-blue-600 text-sm font-medium transition-colors">Events</a>
-                        <a href="#" class="text-slate-600 hover:text-blue-600 text-sm font-medium transition-colors">Training</a>
-                    </div>
                 </div>
                 
-                <div class="flex items-center space-x-6">
-                    <a href="{% url 'academies:explore' %}" class="text-slate-700 hover:text-blue-600 px-3 py-2 rounded-lg text-sm font-medium transition-colors">
-                        Explore
+                <!-- Center Navigation Boxes -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="#" class="bg-white/10 backdrop-blur-sm border-2 border-blue-400/30 rounded-xl px-5 py-3 text-blue-300 hover:text-white hover:bg-blue-500/30 hover:border-blue-400 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30 text-sm font-bold transition-all duration-300">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/></svg>
+                            Coaching
+                        </span>
                     </a>
-                    
+                    <a href="#" class="bg-white/10 backdrop-blur-sm border-2 border-purple-400/30 rounded-xl px-5 py-3 text-purple-300 hover:text-white hover:bg-purple-500/30 hover:border-purple-400 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30 text-sm font-bold transition-all duration-300">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/></svg>
+                            Events
+                        </span>
+                    </a>
+                    <a href="#" class="bg-white/10 backdrop-blur-sm border-2 border-green-400/30 rounded-xl px-5 py-3 text-green-300 hover:text-white hover:bg-green-500/30 hover:border-green-400 hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 text-sm font-bold transition-all duration-300">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
+                            Training
+                        </span>
+                    </a>
+                    <a href="{% url 'academies:explore' %}" class="bg-gradient-to-r from-blue-600 to-green-500 border-2 border-white/30 rounded-xl px-5 py-3 text-white hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 text-sm font-bold transition-all duration-300">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+                            Explore
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Right User Section -->
+                <div class="flex items-center space-x-3">
                     {% if user.is_authenticated %}
-                        <div class="flex items-center space-x-4">
-                            <span class="text-slate-600 text-sm">Welcome, <span class="font-semibold text-slate-800">{{ user.username }}</span></span>
-                            {% if user.role == 'academy' %}
-                                <a href="{% url 'accounts:dashboard' %}" class="text-slate-700 hover:text-blue-600 px-3 py-2 rounded-lg text-sm font-medium transition-colors">
-                                    Dashboard
-                                </a>
-                            {% endif %}
-                            <form method="post" action="{% url 'accounts:logout' %}" class="inline">
-                                {% csrf_token %}
-                                <button type="submit" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        <!-- Welcome Box -->
+                        <div class="bg-gradient-to-r from-orange-500 to-pink-500 border-2 border-white/30 rounded-xl px-4 py-2 shadow-lg">
+                            <span class="text-white text-sm font-bold">Welcome, {{ user.username }}</span>
+                        </div>
+                        
+                        <!-- Profile Box -->
+                        <a href="{% url 'accounts:profile' %}" class="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl px-4 py-2 text-white hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300 shadow-lg">
+                            <span class="flex items-center gap-2 text-sm font-bold">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                Profile
+                            </span>
+                        </a>
+                        
+                        {% if user.role == 'academy' %}
+                        <!-- Dashboard Box -->
+                        <a href="{% url 'accounts:dashboard' %}" class="bg-gradient-to-r from-purple-600 to-pink-500 border-2 border-white/30 rounded-xl px-4 py-2 text-white hover:scale-105 transition-all duration-300 shadow-lg">
+                            <span class="text-sm font-bold">Dashboard</span>
+                        </a>
+                        {% endif %}
+                        
+                        <!-- Logout Box -->
+                        <form method="post" action="{% url 'accounts:logout' %}" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-500/80 backdrop-blur-sm border-2 border-red-400/50 rounded-xl px-4 py-2 text-white hover:bg-red-500 hover:border-red-400 hover:scale-105 transition-all duration-300 shadow-lg">
+                                <span class="flex items-center gap-2 text-sm font-bold">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"/></svg>
                                     Logout
-                                </button>
-                            </form>
-                        </div>
+                                </span>
+                            </button>
+                        </form>
                     {% else %}
-                        <div class="flex items-center space-x-3">
-                            <a href="{% url 'accounts:login' %}" class="text-slate-700 hover:text-blue-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                                Login
-                            </a>
-                            <a href="{% url 'accounts:signup' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
-                                Sign Up
-                            </a>
-                        </div>
+                        <a href="{% url 'accounts:login' %}" class="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl px-5 py-2 text-white hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300 shadow-lg text-sm font-bold">
+                            Login
+                        </a>
+                        <a href="{% url 'accounts:signup' %}" class="bg-gradient-to-r from-blue-600 to-green-500 border-2 border-white/30 rounded-xl px-5 py-2 text-white hover:scale-105 transition-all duration-300 shadow-lg text-sm font-bold">
+                            Sign Up
+                        </a>
                     {% endif %}
                 </div>
             </div>
@@ -115,6 +148,72 @@
             </div>
         </div>
     </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-600/50 transform transition-all">
+            <div class="p-6 border-b border-slate-600/50">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-black text-white">Book Academy</h2>
+                    <button onclick="closeBookingModal()" class="text-slate-400 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <form id="bookingForm">
+                    <div class="mb-4">
+                        <label class="block text-slate-300 text-sm font-bold mb-2">Select Date</label>
+                        <input type="date" class="w-full bg-slate-700/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-300 text-sm font-bold mb-2">Select Time</label>
+                        <select class="w-full bg-slate-700/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 PM</option>
+                            <option>2:00 PM - 3:00 PM</option>
+                            <option>3:00 PM - 4:00 PM</option>
+                            <option>4:00 PM - 5:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-slate-300 text-sm font-bold mb-2">Additional Notes</label>
+                        <textarea class="w-full bg-slate-700/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all h-24" placeholder="Any special requirements..."></textarea>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" onclick="closeBookingModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105">
+                            Cancel
+                        </button>
+                        <button type="submit" class="flex-1 bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                            Confirm Booking
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.remove('hidden');
+            document.getElementById('bookingModal').classList.add('flex');
+        }
+        
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+            document.getElementById('bookingModal').classList.remove('flex');
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBookingModal();
+            }
+        });
+    </script>
 
     {% block extra_js %}{% endblock %}
 </body>

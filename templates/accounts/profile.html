@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - Sports Academy Discovery Platform{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Profile Header -->
+        <div class="bg-gradient-to-br from-slate-800/70 to-slate-700/70 backdrop-blur-xs rounded-2xl border border-slate-600/50 p-8 mb-8">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="w-32 h-32 rounded-full bg-gradient-to-r from-blue-600 to-green-500 flex items-center justify-center text-white text-4xl font-black shadow-2xl">
+                    {{ user.username|slice:":2"|upper }}
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <h1 class="text-3xl font-black text-white mb-2">{{ user.username }}</h1>
+                    <p class="text-slate-400 mb-4">{{ user.email }}</p>
+                    <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                        <span class="bg-gradient-to-r from-blue-600 to-green-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                            {{ user.role|title }}
+                        </span>
+                        <span class="bg-slate-700 text-slate-300 px-4 py-2 rounded-full text-sm font-bold">
+                            Member since Jan 2024
+                        </span>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                        Edit Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Booking History -->
+            <div class="lg:col-span-2">
+                <div class="bg-gradient-to-br from-slate-800/70 to-slate-700/70 backdrop-blur-xs rounded-2xl border border-slate-600/50 overflow-hidden">
+                    <div class="p-6 border-b border-slate-600/50">
+                        <h2 class="text-xl font-black text-white">Booking History</h2>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <!-- Booking Card 1 -->
+                        <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 rounded-xl p-4 border border-slate-600/50 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+                            <div class="flex items-center gap-4">
+                                <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=100&h=100&fit=crop&crop=center" alt="Tennis" class="w-16 h-16 rounded-xl object-cover">
+                                <div class="flex-1">
+                                    <h3 class="text-white font-bold">Elite Tennis Academy</h3>
+                                    <p class="text-slate-400 text-sm">Jan 15, 2024 - Tennis Training</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Confirmed</span>
+                                    <p class="text-white font-bold mt-2">$500</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Booking Card 2 -->
+                        <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 rounded-xl p-4 border border-slate-600/50 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+                            <div class="flex items-center gap-4">
+                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=100&h=100&fit=crop&crop=center" alt="Swimming" class="w-16 h-16 rounded-xl object-cover">
+                                <div class="flex-1">
+                                    <h3 class="text-white font-bold">Olympic Swimming Center</h3>
+                                    <p class="text-slate-400 text-sm">Jan 10, 2024 - Swimming Lessons</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Completed</span>
+                                    <p class="text-white font-bold mt-2">$450</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Booking Card 3 -->
+                        <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 rounded-xl p-4 border border-slate-600/50 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+                            <div class="flex items-center gap-4">
+                                <img src="https://images.pexels.com/photos/358042/pexels-photo-358042.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2" alt="Basketball" class="w-16 h-16 rounded-xl object-cover">
+                                <div class="flex-1">
+                                    <h3 class="text-white font-bold">Pro Basketball Academy</h3>
+                                    <p class="text-slate-400 text-sm">Jan 5, 2024 - Basketball Training</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-xs font-bold">Pending</span>
+                                    <p class="text-white font-bold mt-2">$600</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Favorite Academies -->
+            <div>
+                <div class="bg-gradient-to-br from-slate-800/70 to-slate-700/70 backdrop-blur-xs rounded-2xl border border-slate-600/50 overflow-hidden">
+                    <div class="p-6 border-b border-slate-600/50">
+                        <h2 class="text-xl font-black text-white">Favorite Academies</h2>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <!-- Favorite Card 1 -->
+                        <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 rounded-xl p-4 border border-slate-600/50 hover:border-green-500/50 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+                            <div class="flex items-center gap-4">
+                                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=100&h=100&fit=crop&crop=center" alt="Yoga" class="w-16 h-16 rounded-xl object-cover">
+                                <div class="flex-1">
+                                    <h3 class="text-white font-bold">Zen Yoga Studio</h3>
+                                    <div class="flex items-center text-slate-400 text-sm mt-1">
+                                        <svg class="w-4 h-4 mr-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                        <span>4.9</span>
+                                    </div>
+                                </div>
+                                <button class="text-red-400 hover:text-red-300 transition-colors">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Favorite Card 2 -->
+                        <div class="bg-gradient-to-br from-slate-700/50 to-slate-600/50 rounded-xl p-4 border border-slate-600/50 hover:border-green-500/50 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+                            <div class="flex items-center gap-4">
+                                <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=100&h=100&fit=crop&crop=center" alt="Tennis" class="w-16 h-16 rounded-xl object-cover">
+                                <div class="flex-1">
+                                    <h3 class="text-white font-bold">Elite Tennis Academy</h3>
+                                    <div class="flex items-center text-slate-400 text-sm mt-1">
+                                        <svg class="w-4 h-4 mr-1 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                        <span>4.9</span>
+                                    </div>
+                                </div>
+                                <button class="text-red-400 hover:text-red-300 transition-colors">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

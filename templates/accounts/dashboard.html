@@ -3,81 +3,172 @@
 {% block title %}Dashboard - Sports Academy Discovery Platform{% endblock %}
 
 {% block content %}
-<div class="py-8">
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-dark">Academy Dashboard</h1>
-        <p class="mt-2 text-gray-600">Welcome back, {{ user.username }}! Manage your sports academy here.</p>
-    </div>
-    
-    <!-- Placeholder Content -->
-    <div class="bg-white rounded-lg shadow-lg p-8 text-center">
-        <div class="text-6xl mb-4">🏗️</div>
-        <h2 class="text-2xl font-bold text-dark mb-4">Dashboard Under Construction</h2>
-        <p class="text-gray-600 mb-6">
-            This is your academy dashboard. In future phases, you'll be able to:
-        </p>
-        <ul class="text-left max-w-md mx-auto space-y-2 text-gray-600">
-            <li class="flex items-center">
-                <span class="text-secondary mr-2">✓</span>
-                Manage your academy information
-            </li>
-            <li class="flex items-center">
-                <span class="text-secondary mr-2">✓</span>
-                View and manage bookings
-            </li>
-            <li class="flex items-center">
-                <span class="text-secondary mr-2">✓</span>
-                Communicate with learners
-            </li>
-            <li class="flex items-center">
-                <span class="text-secondary mr-2">✓</span>
-                Track revenue and analytics
-            </li>
-        </ul>
-        <div class="mt-8">
-            <a href="{% url 'academies:explore' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-blue-700 transition">
-                Explore Other Academies
-            </a>
-        </div>
-    </div>
-    
-    <!-- Quick Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center">
-                <div class="flex-shrink-0 bg-primary bg-opacity-10 rounded-lg p-3">
-                    <span class="text-2xl">👥</span>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gradient-to-b from-slate-900 to-slate-800 min-h-screen p-6 border-r border-slate-700/50 fixed left-0 top-0">
+            <!-- Logo -->
+            <div class="flex items-center mb-8">
+                <div class="bg-gradient-to-r from-blue-600 to-green-500 p-2 rounded-xl mr-3 shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
                 </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Total Learners</p>
-                    <p class="text-2xl font-bold text-dark">Coming Soon</p>
-                </div>
+                <span class="text-xl font-black bg-gradient-to-r from-blue-600 to-green-500 bg-clip-text text-transparent">SPORTS ARENA</span>
             </div>
-        </div>
+            
+            <!-- Navigation -->
+            <nav class="space-y-2">
+                <a href="{% url 'accounts:dashboard' %}" class="flex items-center px-4 py-3 bg-gradient-to-r from-blue-600 to-green-500 text-white rounded-xl font-bold shadow-xl">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="{% url 'accounts:manage_academy' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                    </svg>
+                    Manage Academy
+                </a>
+                <a href="{% url 'accounts:manage_coaches' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                    </svg>
+                    Manage Coaches
+                </a>
+                <a href="{% url 'accounts:upload_photos' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"/>
+                    </svg>
+                    Upload Photos
+                </a>
+                <a href="{% url 'accounts:view_bookings' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                    </svg>
+                    View Bookings
+                </a>
+            </nav>
+        </aside>
         
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center">
-                <div class="flex-shrink-0 bg-secondary bg-opacity-10 rounded-lg p-3">
-                    <span class="text-2xl">📅</span>
+        <!-- Main Content -->
+        <main class="flex-1 ml-64 p-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-black text-slate-800 mb-2">Academy Dashboard</h1>
+                <p class="text-slate-600">Welcome back, {{ user.username }}! Manage your sports academy here.</p>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Total Academies -->
+                <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 border border-slate-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-slate-600 text-sm font-medium mb-1">Total Academies</p>
+                            <p class="text-3xl font-black text-slate-800">{{ academies.count }}</p>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-600 to-green-500 w-12 h-12 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Bookings This Month</p>
-                    <p class="text-2xl font-bold text-dark">Coming Soon</p>
+                
+                <!-- Total Coaches -->
+                <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 border border-slate-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-slate-600 text-sm font-medium mb-1">Total Coaches</p>
+                            <p class="text-3xl font-black text-slate-800">12</p>
+                        </div>
+                        <div class="bg-gradient-to-r from-purple-600 to-pink-500 w-12 h-12 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Total Bookings -->
+                <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 border border-slate-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-slate-600 text-sm font-medium mb-1">Total Bookings</p>
+                            <p class="text-3xl font-black text-slate-800">45</p>
+                        </div>
+                        <div class="bg-gradient-to-r from-orange-500 to-red-500 w-12 h-12 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center">
-                <div class="flex-shrink-0 bg-yellow-100 rounded-lg p-3">
-                    <span class="text-2xl">⭐</span>
+            
+            <!-- Quick Action Buttons -->
+            <div class="flex gap-4 mb-8">
+                <a href="{% url 'accounts:manage_academy' %}" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                    + Add Academy
+                </a>
+                <a href="{% url 'accounts:manage_coaches' %}" class="bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                    + Add Coach
+                </a>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                <div class="p-6 border-b border-slate-200">
+                    <h2 class="text-xl font-black text-slate-800">Recent Activity</h2>
                 </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Average Rating</p>
-                    <p class="text-2xl font-bold text-dark">Coming Soon</p>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
+                            <div class="bg-green-100 w-10 h-10 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-slate-800 font-bold">New booking received</p>
+                                <p class="text-slate-600 text-sm">John Doe booked Tennis Academy</p>
+                            </div>
+                            <span class="text-slate-400 text-sm">2 hours ago</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
+                            <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-slate-800 font-bold">New academy added</p>
+                                <p class="text-slate-600 text-sm">Elite Tennis Academy created</p>
+                            </div>
+                            <span class="text-slate-400 text-sm">1 day ago</span>
+                        </div>
+                        
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
+                            <div class="bg-purple-100 w-10 h-10 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-slate-800 font-bold">Coach added</p>
+                                <p class="text-slate-600 text-sm">Michael Jordan joined as coach</p>
+                            </div>
+                            <span class="text-slate-400 text-sm">2 days ago</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 </div>
 {% endblock %}

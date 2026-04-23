@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}My Bookings - Sports Academy Discovery Platform{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <div class="p-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-black text-slate-800 mb-2">My Bookings</h1>
+            <p class="text-slate-600">View and manage your academy bookings</p>
+        </div>
+        
+        <!-- Bookings List -->
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+            <div class="p-6 border-b border-slate-200">
+                <h2 class="text-xl font-black text-slate-800">Your Bookings</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">Academy</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        {% for booking in bookings %}
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    {% if booking.academy.image %}
+                                    <img src="{{ booking.academy.image.url }}" alt="{{ booking.academy.name }}" class="w-12 h-12 rounded-xl object-cover mr-4">
+                                    {% else %}
+                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-green-500 flex items-center justify-center text-white font-bold mr-4">{{ booking.academy.name|slice:":2"|upper }}</div>
+                                    {% endif %}
+                                    <div>
+                                        <p class="text-slate-800 font-bold">{{ booking.academy.name }}</p>
+                                        <p class="text-slate-600 text-sm">{{ booking.academy.get_sport_display }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-slate-600">{{ booking.booking_date }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {% if booking.status == 'pending' %}
+                                <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">Pending</span>
+                                {% elif booking.status == 'confirmed' %}
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">Confirmed</span>
+                                {% elif booking.status == 'rejected' %}
+                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">Rejected</span>
+                                {% elif booking.status == 'cancelled' %}
+                                <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold">Cancelled</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-slate-600">
+                                {{ booking.notes|default:"-"|truncatewords:10 }}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="px-6 py-12 text-center text-slate-500">
+                                <p class="text-lg font-bold">No bookings found</p>
+                                <p class="text-sm"><a href="{% url 'academies:explore' %}" class="text-blue-600 hover:underline">Browse academies</a> to make your first booking</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
