@@ -77,3 +77,108 @@ def book_academy_view(request):
         return redirect('accounts:dashboard')
     
     return redirect('academies:explore')
+
+
+# ==================== API ENDPOINTS WITH API KEY AUTH ====================
+
+from django.http import JsonResponse
+from .api_auth import require_api_key, APIKeyAuthentication
+from .models import APIKey
+import json
+
+
+@require_api_key
+def api_academies_list(request):
+    """
+    API endpoint to list all academies.
+    Requires X-API-Key header.
+    
+    GET /api/academies/
+    Header: X-API-Key: your-api-key
+    """
+    academies = Academy.objects.filter(is_active=True)
+    
+    data = []
+    for academy in academies:
+        data.append({
+            'id': academy.id,
+            'name': academy.name,
+            'sport': academy.get_sport_display(),
+            'location': academy.location,
+            'city': academy.city,
+            'fees': float(academy.fees),
+            'coach_name': academy.coach_name,
+            'coach_experience': academy.coach_experience,
+        })
+    
+    return JsonResponse({
+        'status': 'success',
+        'count': len(data),
+        'data': data
+    })
+
+
+@require_api_key
+def api_academy_detail(request, academy_id):
+    """
+    API endpoint to get academy details.
+    Requires X-API-Key header.
+    
+    GET /api/academies/<id>/
+    Header: X-API-Key: your-api-key
+    """
+    try:
+        academy = Academy.objects.get(id=academy_id, is_active=True)
+        
+        data = {
+            'id': academy.id,
+            'name': academy.name,
+            'sport': academy.get_sport_display(),
+            'location': academy.location,
+            'city': academy.city,
+            'fees': float(academy.fees),
+            'coach_name': academy.coach_name,
+            'coach_experience': academy.coach_experience,
+            'description': academy.description,
+            'image_url': academy.image.url if academy.image else None,
+            'phone': academy.phone,
+            'email': academy.email,
+            'website': academy.website,
+        }
+        
+        return JsonResponse({
+            'status': 'success',
+            'data': data
+        })
+    
+    except Academy.DoesNotExist:
+        return JsonResponse({
+            'status': 'error',
+            'message': 'Academy not found'
+        }, status=404)
+
+
+def api_test_auth(request):
+    """
+    Test API key authentication.
+    Requires X-API-Key header.
+    
+    GET /api/test/
+    Header: X-API-Key: your-api-key
+    """
+    auth = APIKeyAuthentication.authenticate(request)
+    key_obj, error = auth
+    
+    if error:
+        return JsonResponse({
+            'status': 'error',
+            'message': error['error']
+        }, status=error['code'])
+    
+    return JsonResponse({
+        'status': 'success',
+        'message': 'API key is valid',
+        'api_key_name': key_obj.name,
+        'created_at': key_obj.created_at.isoformat(),
+        'last_used_at': key_obj.last_used_at.isoformat() if key_obj.last_used_at else None
+    })
