@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 class Coach(models.Model):
     SPORT_CHOICES = [
         ('badminton', 'Badminton'),
@@ -53,6 +54,19 @@ class Academy(models.Model):
     email = models.EmailField(blank=True)
     website = models.URLField(blank=True)
     is_active = models.BooleanField(default=True)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='owned_academies',
+    )
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+    rating = models.DecimalField(max_digits=3, decimal_places=2, default=4.5)
+    facilities = models.TextField(blank=True, help_text='Comma-separated facilities')
+    opening_hours = models.CharField(max_length=200, blank=True, default='Mon–Sat 6:00–21:00')
+    total_coaches = models.PositiveSmallIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -65,6 +79,102 @@ class Academy(models.Model):
     @property
     def coach_info(self):
         return f"{self.coach_name} ({self.coach_experience} years)"
+
+    @property
+    def sports_offered_display(self):
+        return self.get_sport_display()
+
+    @property
+    def facilities_list(self):
+        if not self.facilities:
+            return ['Pro-grade equipment', 'Locker rooms', 'Parking']
+        return [f.strip() for f in self.facilities.split(',') if f.strip()]
+
+
+class UserActivity(models.Model):
+    ACTIVITY_CHOICES = [
+        ('search', 'Search'),
+        ('view_academy', 'View Academy'),
+        ('booking', 'Booking'),
+        ('favorite_add', 'Favorite Add'),
+        ('favorite_remove', 'Favorite Remove'),
+    ]
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='activities',
+    )
+    session_key = models.CharField(max_length=64, blank=True, db_index=True)
+    activity = models.CharField(max_length=32, choices=ACTIVITY_CHOICES, db_index=True)
+    query = models.CharField(max_length=255, blank=True)
+    sport = models.CharField(max_length=32, blank=True, db_index=True)
+    city = models.CharField(max_length=120, blank=True)
+    academy = models.ForeignKey(
+        'Academy',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='activities',
+    )
+    extra = models.JSONField(default=dict, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['-created_at', 'activity']),
+        ]
+
+    def __str__(self):
+        return f"{self.activity} @ {self.created_at:%Y-%m-%d}"
+
+
+class FavoriteAcademy(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='favorite_academies')
+    academy = models.ForeignKey(Academy, on_delete=models.CASCADE, related_name='favorited_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = [['user', 'academy']]
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user} ♥ {self.academy.name}"
+
+
+class ChatRoom(models.Model):
+    academy = models.ForeignKey(Academy, on_delete=models.CASCADE, related_name='chat_rooms')
+    learner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='learner_chat_rooms')
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = [['academy', 'learner']]
+        ordering = ['-updated_at']
+
+    def __str__(self):
+        return f"{self.learner} ↔ {self.academy.name}"
+
+    @property
+    def owner(self):
+        return self.academy.owner
+
+
+class Message(models.Model):
+    room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='messages')
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='chat_messages_sent')
+    body = models.TextField()
+    read_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"{self.sender}: {self.body[:40]}"
+
 
 class Booking(models.Model):
     STATUS_CHOICES = [

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Messages · Sports Arena{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white py-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-black bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">Inbox</h1>
+        <p class="text-slate-400 text-sm mt-1">High-signal conversations with academies you are exploring.</p>
+      </div>
+      <a href="{% url 'academies:explore' %}" class="text-sm font-bold text-cyan-300 hover:text-white">← Explore</a>
+    </div>
+
+    <div class="space-y-4">
+      {% for room in rooms %}
+      <a href="{% url 'academies:chat_room' room.id %}" class="block rounded-2xl border border-cyan-500/20 bg-slate-900/70 hover:border-cyan-400/60 hover:shadow-[0_0_30px_rgba(34,211,238,0.18)] transition p-5">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <div class="text-xs uppercase tracking-widest text-slate-500 font-bold">Thread</div>
+            <div class="text-lg font-black mt-1">{{ room.academy.name }}</div>
+            <div class="text-xs text-slate-400 mt-1">
+              {% if user.role == 'academy' %}
+                Athlete: <span class="text-cyan-200 font-semibold">{{ room.learner.username }}</span>
+              {% else %}
+                Owner line · <span class="text-cyan-200 font-semibold">{{ room.academy.owner.username|default:"Verified desk" }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-[11px] text-slate-500">Updated</div>
+            <div class="text-xs font-bold text-slate-200">{{ room.updated_at|timesince }} ago</div>
+            <div class="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-400/40 px-2 py-1 text-[11px] font-black text-emerald-200">
+              ● {{ room.msg_count }} msgs
+            </div>
+          </div>
+        </div>
+      </a>
+      {% empty %}
+      <div class="rounded-3xl border border-dashed border-slate-600 bg-slate-900/60 p-12 text-center">
+        <div class="text-4xl mb-3">💬</div>
+        <p class="text-slate-300 font-semibold">No conversations yet.</p>
+        <p class="text-slate-500 text-sm mt-2">Open any academy with messaging enabled and tap <span class="text-cyan-300 font-bold">Chat with academy</span>.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

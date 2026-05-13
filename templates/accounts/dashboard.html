@@ -50,6 +50,10 @@
                     </svg>
                     View Bookings
                 </a>
+                <a href="{% url 'academies:chat_inbox' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/></svg>
+                    Messages{% if chat_count %} <span class="ml-1 text-cyan-300 text-xs font-black">({{ chat_count }})</span>{% endif %}
+                </a>
             </nav>
         </aside>
         
@@ -67,8 +71,8 @@
                 <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 border border-slate-200">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-slate-600 text-sm font-medium mb-1">Total Academies</p>
-                            <p class="text-3xl font-black text-slate-800">{{ academies.count }}</p>
+                            <p class="text-slate-600 text-sm font-medium mb-1">Your academies</p>
+                            <p class="text-3xl font-black text-slate-800">{{ academy_count }}</p>
                         </div>
                         <div class="bg-gradient-to-r from-blue-600 to-green-500 w-12 h-12 rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -82,8 +86,8 @@
                 <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 border border-slate-200">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-slate-600 text-sm font-medium mb-1">Total Coaches</p>
-                            <p class="text-3xl font-black text-slate-800">12</p>
+                            <p class="text-slate-600 text-sm font-medium mb-1">Coaches (directory)</p>
+                            <p class="text-3xl font-black text-slate-800">{{ coach_count }}</p>
                         </div>
                         <div class="bg-gradient-to-r from-purple-600 to-pink-500 w-12 h-12 rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -97,8 +101,8 @@
                 <div class="bg-white p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 border border-slate-200">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-slate-600 text-sm font-medium mb-1">Total Bookings</p>
-                            <p class="text-3xl font-black text-slate-800">45</p>
+                            <p class="text-slate-600 text-sm font-medium mb-1">Bookings (your venues)</p>
+                            <p class="text-3xl font-black text-slate-800">{{ booking_count }}</p>
                         </div>
                         <div class="bg-gradient-to-r from-orange-500 to-red-500 w-12 h-12 rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -122,49 +126,26 @@
             
             <!-- Recent Activity -->
             <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-                <div class="p-6 border-b border-slate-200">
-                    <h2 class="text-xl font-black text-slate-800">Recent Activity</h2>
+                <div class="p-6 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+                    <h2 class="text-xl font-black text-slate-800">Recent bookings</h2>
+                    <a href="{% url 'academies:chat_inbox' %}" class="text-sm font-bold text-cyan-600 hover:text-cyan-800">Open messages →</a>
                 </div>
                 <div class="p-6">
                     <div class="space-y-4">
-                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
-                            <div class="bg-green-100 w-10 h-10 rounded-full flex items-center justify-center">
-                                <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                </svg>
+                        {% for b in recent_bookings %}
+                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                            <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z" clip-rule="evenodd"/></svg>
                             </div>
-                            <div class="flex-1">
-                                <p class="text-slate-800 font-bold">New booking received</p>
-                                <p class="text-slate-600 text-sm">John Doe booked Tennis Academy</p>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-slate-800 font-bold truncate">{{ b.user.username }} · {{ b.academy.name }}</p>
+                                <p class="text-slate-600 text-sm">{{ b.booking_date }} · <span class="font-semibold capitalize">{{ b.status }}</span></p>
                             </div>
-                            <span class="text-slate-400 text-sm">2 hours ago</span>
+                            <span class="text-slate-400 text-sm whitespace-nowrap">{{ b.created_at|timesince }} ago</span>
                         </div>
-                        
-                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
-                            <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center">
-                                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-slate-800 font-bold">New academy added</p>
-                                <p class="text-slate-600 text-sm">Elite Tennis Academy created</p>
-                            </div>
-                            <span class="text-slate-400 text-sm">1 day ago</span>
-                        </div>
-                        
-                        <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-xl">
-                            <div class="bg-purple-100 w-10 h-10 rounded-full flex items-center justify-center">
-                                <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-slate-800 font-bold">Coach added</p>
-                                <p class="text-slate-600 text-sm">Michael Jordan joined as coach</p>
-                            </div>
-                            <span class="text-slate-400 text-sm">2 days ago</span>
-                        </div>
+                        {% empty %}
+                        <p class="text-slate-500 text-center py-8">No bookings for your academies yet. Share your listings on Explore.</p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

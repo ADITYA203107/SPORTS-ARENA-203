@@ -1,179 +1,215 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}{{ academy.name }} - Sports Academy Discovery Platform{% endblock %}
+{% block title %}{{ academy.name }} · Academy Pulse{% endblock %}
+
+{% block extra_css %}
+<style>
+  #detail-map { height: 320px; border-radius: 1.25rem; }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
-    <div class="p-8">
-        <!-- Breadcrumb -->
-        <div class="mb-6">
-            <a href="{% url 'academies:explore' %}" class="text-blue-600 hover:text-blue-700 font-medium">← Back to Academies</a>
-        </div>
-        
-        <!-- Academy Header -->
-        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-8">
-            {% if academy.image %}
-            <img src="{{ academy.image.url }}" alt="{{ academy.name }}" class="w-full h-96 object-cover">
-            {% else %}
-            <div class="w-full h-96 bg-gradient-to-r from-blue-600 to-green-500 flex items-center justify-center">
-                <span class="text-white text-6xl font-black">{{ academy.name|slice:":2"|upper }}</span>
+<div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white pb-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <a href="{% url 'academies:explore' %}" class="inline-flex items-center gap-2 text-sm font-bold text-cyan-300 hover:text-white transition mb-6">
+      ← Back to discovery
+    </a>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2 space-y-6">
+        <div class="relative overflow-hidden rounded-3xl border border-cyan-500/20 bg-slate-900/70 shadow-[0_0_60px_rgba(34,211,238,0.12)]">
+          {% if academy.image %}
+          <img src="{{ academy.image.url }}" alt="{{ academy.name }}" class="w-full h-80 object-cover" />
+          {% else %}
+          <div class="h-80 flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-8xl">🏟️</div>
+          {% endif %}
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div class="inline-flex items-center gap-2 rounded-full bg-black/50 border border-white/10 px-3 py-1 text-xs font-black text-cyan-200 mb-2">{{ academy.get_sport_display }}</div>
+              <h1 class="text-3xl sm:text-4xl font-black leading-tight">{{ academy.name }}</h1>
+              <p class="text-slate-300 text-sm mt-2 flex items-center gap-2"><span class="text-cyan-300">📍</span>{{ academy.location }}, {{ academy.city }}</p>
             </div>
+            <div class="text-right">
+              <div class="text-xs uppercase tracking-widest text-slate-400 font-bold">Monthly</div>
+              <div class="text-4xl font-black bg-gradient-to-r from-cyan-300 to-emerald-300 bg-clip-text text-transparent">₹{{ academy.fees }}</div>
+              <div class="text-xs text-amber-300 font-bold mt-1">★ {{ academy.rating }} athlete score</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 sm:p-8">
+          <h2 class="text-xl font-black mb-3 flex items-center gap-2"><span class="text-cyan-300">⚡</span> Performance profile</h2>
+          <p class="text-slate-300 leading-relaxed">{{ academy.description }}</p>
+          <div class="mt-6 grid sm:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-2xl border border-slate-700/80 bg-slate-950/60 p-4">
+              <div class="text-xs uppercase text-slate-500 font-bold mb-1">Lead coach</div>
+              <div class="font-black text-lg">{{ academy.coach_name }}</div>
+              <div class="text-cyan-200 text-xs mt-1">{{ academy.coach_experience }}+ years elite experience</div>
+            </div>
+            <div class="rounded-2xl border border-slate-700/80 bg-slate-950/60 p-4">
+              <div class="text-xs uppercase text-slate-500 font-bold mb-1">Coaching bench</div>
+              <div class="font-black text-lg">{{ academy.total_coaches }} coaches</div>
+              <div class="text-cyan-200 text-xs mt-1">Multi-skill pods & specialist drills</div>
+            </div>
+            <div class="rounded-2xl border border-slate-700/80 bg-slate-950/60 p-4 sm:col-span-2">
+              <div class="text-xs uppercase text-slate-500 font-bold mb-1">Facilities stack</div>
+              <div class="flex flex-wrap gap-2">
+                {% for f in academy.facilities_list %}
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-blue-600/30 to-cyan-500/20 border border-cyan-400/30">{{ f }}</span>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="rounded-2xl border border-slate-700/80 bg-slate-950/60 p-4 sm:col-span-2">
+              <div class="text-xs uppercase text-slate-500 font-bold mb-1">Timings</div>
+              <div class="font-semibold text-slate-100">{{ academy.opening_hours }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-cyan-500/20 bg-slate-900/70 p-4 sm:p-6">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-black">Location radar</h3>
+            <a class="text-xs font-bold text-cyan-300 hover:text-white" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination={{ map_lat }},{{ map_lng }}">Open in Google Maps ↗</a>
+          </div>
+          {% if GOOGLE_MAPS_API_KEY %}
+          <div id="detail-map" class="border border-cyan-500/20"></div>
+          {% else %}
+          <div id="detail-map" class="border border-cyan-500/20 flex items-center justify-center text-slate-400 text-sm font-semibold p-6 text-center">Set <code class="text-cyan-300">GOOGLE_MAPS_API_KEY</code> to show the map.</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="rounded-3xl border border-emerald-400/30 bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 p-6 shadow-xl">
+          <h3 class="text-lg font-black mb-4">Command deck</h3>
+          <div class="space-y-3">
+            <button type="button" onclick="openBookingModal()" class="w-full rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 py-3 text-sm font-black text-slate-950 shadow-lg hover:scale-[1.02] transition">Book trial / session</button>
+            {% if user.is_authenticated %}
+            <button type="button" id="detail-fav" data-url="{% url 'academies:api_toggle_favorite' academy.id %}" class="w-full rounded-2xl border border-pink-400/40 bg-pink-500/10 py-3 text-sm font-black text-pink-100 hover:bg-pink-500/20 transition">
+              {% if is_favorite %}♥ In your stack{% else %}♡ Save to favorites{% endif %}
+            </button>
             {% endif %}
-            <div class="p-8">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <h1 class="text-3xl font-black text-slate-800 mb-2">{{ academy.name }}</h1>
-                        <span class="bg-gradient-to-r from-blue-600 to-green-500 text-white px-4 py-2 rounded-full text-sm font-bold">{{ academy.get_sport_display }}</span>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-3xl font-black text-slate-800">₹{{ academy.fees }}</p>
-                        <p class="text-slate-600 text-sm">per month</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-center gap-6 text-slate-600 mb-6">
-                    <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ academy.location }}, {{ academy.city }}
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                        </svg>
-                        Coach: {{ academy.coach_name }}
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ academy.coach_experience }} years experience
-                    </div>
-                </div>
-                
-                <div class="mb-6">
-                    <h2 class="text-xl font-black text-slate-800 mb-3">About</h2>
-                    <p class="text-slate-600">{{ academy.description }}</p>
-                </div>
-                
-                <div class="flex gap-4">
-                    <button onclick="openBookingModal()" class="flex-1 bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
-                        Book Now
-                    </button>
-                    <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 px-8 py-4 rounded-xl font-bold transition-all">
-                        Add to Favorites
-                    </button>
-                </div>
-            </div>
+            {% if can_chat %}
+            <a href="{% url 'academies:chat_open' academy.id %}" class="block text-center w-full rounded-2xl border border-cyan-400/40 bg-cyan-500/10 py-3 text-sm font-black text-cyan-100 hover:bg-cyan-500/20 transition">💬 Chat with academy</a>
+            {% elif user.is_authenticated and user == academy.owner %}
+            <a href="{% url 'academies:chat_inbox' %}" class="block text-center w-full rounded-2xl border border-slate-600 bg-slate-900 py-3 text-sm font-bold text-slate-200">Owner inbox</a>
+            {% else %}
+            <a href="{% url 'accounts:login' %}?next={{ request.path|urlencode }}" class="block text-center w-full rounded-2xl border border-cyan-400/40 bg-cyan-500/10 py-3 text-sm font-black text-cyan-100 hover:bg-cyan-500/20 transition">Sign in to chat</a>
+            {% endif %}
+          </div>
         </div>
-        
-        <!-- Contact Information -->
-        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
-            <h2 class="text-xl font-black text-slate-800 mb-4">Contact Information</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {% if academy.phone %}
-                <div class="flex items-center gap-4">
-                    <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M2 3a1 1 0 011-1h1a1 1 0 011 1v4a1 1 0 01-1 1H2a1 1 0 01-1-1V3zM6 6a1 1 0 011-1h1a1 1 0 011 1v2a1 1 0 01-1 1H6a1 1 0 01-1-1V6zM10 9a1 1 0 011-1h1a1 1 0 011 1v2a1 1 0 01-1 1h-1a1 1 0 01-1-1V9zM14 6a1 1 0 011-1h1a1 1 0 011 1v4a1 1 0 01-1 1h-1a1 1 0 01-1-1V6z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-slate-600 text-sm">Phone</p>
-                        <p class="text-slate-800 font-bold">{{ academy.phone }}</p>
-                    </div>
-                </div>
-                {% endif %}
-                {% if academy.email %}
-                <div class="flex items-center gap-4">
-                    <div class="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-slate-600 text-sm">Email</p>
-                        <p class="text-slate-800 font-bold">{{ academy.email }}</p>
-                    </div>
-                </div>
-                {% endif %}
-                {% if academy.website %}
-                <div class="flex items-center gap-4">
-                    <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm-1.876 5.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.267.426c.24-.56.5-.948.737-1.182.233-.23.389-.262.465-.262.076 0 .232.032.465.262.238.234.498.623.737 1.182.389.907.673 2.142.766 3.556H4.083a6.004 6.004 0 012.783-4.118z" clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-slate-600 text-sm">Website</p>
-                        <a href="{{ academy.website }}" target="_blank" class="text-blue-600 font-bold hover:underline">{{ academy.website }}</a>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
+
+        <div class="rounded-3xl border border-white/10 bg-slate-900/70 p-6">
+          <h3 class="text-lg font-black mb-4">Nearby arenas</h3>
+          <div class="space-y-3">
+            {% for row in nearby %}
+            <a href="{% url 'academies:detail' row.academy.id %}" class="flex items-center justify-between rounded-2xl border border-slate-700/80 bg-slate-950/60 px-3 py-3 hover:border-cyan-400/50 transition">
+              <div>
+                <div class="font-bold text-sm">{{ row.academy.name }}</div>
+                <div class="text-xs text-slate-400">{{ row.academy.city }} · {{ row.academy.get_sport_display }}</div>
+              </div>
+              <div class="text-xs font-black text-cyan-300">{{ row.distance_km }} km</div>
+            </a>
+            {% empty %}
+            <p class="text-sm text-slate-400">More venues onboarding nearby — widen your map search from Explore.</p>
+            {% endfor %}
+          </div>
         </div>
+
+        <div class="rounded-3xl border border-white/10 bg-slate-900/70 p-6">
+          <h3 class="text-lg font-black mb-4">You may also like</h3>
+          <div class="space-y-3">
+            {% for a in rec_same_sport %}
+            <a href="{% url 'academies:detail' a.id %}" class="block rounded-2xl border border-slate-700/80 bg-slate-950/60 px-3 py-3 hover:border-emerald-400/50 transition">
+              <div class="flex justify-between gap-2">
+                <div class="font-bold text-sm line-clamp-2">{{ a.name }}</div>
+                <div class="text-xs font-black text-emerald-300">★ {{ a.rating }}</div>
+              </div>
+              <div class="text-xs text-slate-400 mt-1">₹{{ a.fees }} / mo</div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center">
-        <div class="bg-white rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-200 transform transition-all">
-            <div class="p-6 border-b border-slate-200">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-2xl font-black text-slate-800">Book Academy</h2>
-                    <button onclick="closeBookingModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div class="p-6">
-                <form id="bookingForm" method="post" action="{% url 'academies:book_academy' %}">
-                    {% csrf_token %}
-                    <input type="hidden" id="academyId" name="academy_id" value="{{ academy.id }}">
-                    <div class="mb-4">
-                        <label class="block text-slate-700 text-sm font-bold mb-2">Academy</label>
-                        <input type="text" value="{{ academy.name }}" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800" readonly>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-slate-700 text-sm font-bold mb-2">Booking Date</label>
-                        <input type="date" name="booking_date" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-slate-700 text-sm font-bold mb-2">Notes</label>
-                        <textarea name="notes" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 h-24" placeholder="Any special requirements..."></textarea>
-                    </div>
-                    <div class="flex gap-4">
-                        <button type="button" onclick="closeBookingModal()" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-800 px-6 py-3 rounded-xl font-bold transition-all">
-                            Cancel
-                        </button>
-                        <button type="submit" class="flex-1 bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
-                            Confirm Booking
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        function openBookingModal() {
-            document.getElementById('bookingModal').classList.remove('hidden');
-            document.getElementById('bookingModal').classList.add('flex');
-        }
-        
-        function closeBookingModal() {
-            document.getElementById('bookingModal').classList.add('hidden');
-            document.getElementById('bookingModal').classList.remove('flex');
-        }
-        
-        document.getElementById('bookingModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeBookingModal();
-            }
-        });
-    </script>
+  </div>
 </div>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center">
+  <div class="bg-white rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-200">
+    <div class="p-6 border-b border-slate-200 flex justify-between items-center">
+      <h2 class="text-2xl font-black text-slate-800">Book Academy</h2>
+      <button type="button" onclick="closeBookingModal()" class="text-slate-400 hover:text-slate-700">✕</button>
+    </div>
+    <div class="p-6">
+      <form method="post" action="{% url 'academies:book_academy' %}">
+        {% csrf_token %}
+        <input type="hidden" name="academy_id" value="{{ academy.id }}" />
+        <div class="mb-4">
+          <label class="block text-slate-700 text-sm font-bold mb-2">Academy</label>
+          <input type="text" value="{{ academy.name }}" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800" readonly />
+        </div>
+        <div class="mb-4">
+          <label class="block text-slate-700 text-sm font-bold mb-2">Booking Date</label>
+          <input type="date" name="booking_date" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="mb-6">
+          <label class="block text-slate-700 text-sm font-bold mb-2">Notes</label>
+          <textarea name="notes" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 h-24 text-slate-800 focus:ring-2 focus:ring-blue-500" placeholder="Share level, goals, timing…"></textarea>
+        </div>
+        <div class="flex gap-3">
+          <button type="button" onclick="closeBookingModal()" class="flex-1 rounded-xl bg-slate-200 py-3 text-sm font-bold text-slate-800">Cancel</button>
+          <button type="submit" class="flex-1 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500 py-3 text-sm font-black text-white">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/day3-discovery.js' %}"></script>
+<script>
+  const dLat = {{ map_lat }}, dLng = {{ map_lng }};
+  window.initDetailMap = function () {
+    const el = document.getElementById('detail-map');
+    if (!el || !window.google || !window.google.maps) return;
+    const center = { lat: dLat, lng: dLng };
+    const map = new google.maps.Map(el, {
+      center,
+      zoom: 13,
+      mapTypeControl: false,
+      streetViewControl: false,
+      gestureHandling: 'cooperative',
+    });
+    const marker = new google.maps.Marker({ position: center, map: map, title: "{{ academy.name|escapejs }}" });
+    const iw = new google.maps.InfoWindow({ content: '<div class="text-slate-900 text-sm font-bold">{{ academy.name|escapejs }}</div>' });
+    marker.addListener('click', () => { iw.open({ map: map, anchor: marker }); });
+  };
+
+  function openBookingModal() {
+    const m = document.getElementById('bookingModal');
+    m.classList.remove('hidden'); m.classList.add('flex');
+  }
+  function closeBookingModal() {
+    const m = document.getElementById('bookingModal');
+    m.classList.add('hidden'); m.classList.remove('flex');
+  }
+  document.getElementById('bookingModal')?.addEventListener('click', function (e) {
+    if (e.target === this) closeBookingModal();
+  });
+
+  const favBtn = document.getElementById('detail-fav');
+  if (favBtn) {
+    favBtn.addEventListener('click', () => {
+      fetchJSON(favBtn.dataset.url, { method: 'POST' }).then((data) => {
+        favBtn.textContent = data.favorited ? '♥ In your stack' : '♡ Save to favorites';
+      });
+    });
+  }
+</script>
+{% if GOOGLE_MAPS_API_KEY %}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initDetailMap"></script>
+{% endif %}
 {% endblock %}

@@ -52,6 +52,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.academies.context_processors.google_maps',
             ],
         },
     },
@@ -97,6 +98,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static'] if (BASE_DIR / 'static').exists() else 
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Google Maps JavaScript API (set GOOGLE_MAPS_API_KEY in .env — never commit real keys to git)
+GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

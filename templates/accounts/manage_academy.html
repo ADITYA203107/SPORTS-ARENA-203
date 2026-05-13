@@ -50,6 +50,10 @@
                     </svg>
                     View Bookings
                 </a>
+                <a href="{% url 'academies:chat_inbox' %}" class="flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700/50 rounded-xl font-medium transition-all">
+                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/></svg>
+                    Messages
+                </a>
             </nav>
         </aside>
         
@@ -61,7 +65,7 @@
                     <h1 class="text-3xl font-black text-slate-800 mb-2">Manage Academy</h1>
                     <p class="text-slate-600">Add, edit, or delete your sports academies</p>
                 </div>
-                <button onclick="document.getElementById('addAcademyForm').classList.toggle('hidden')" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+                <button id="toggleFormBtn" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
                     + Add New Academy
                 </button>
             </div>
@@ -105,6 +109,48 @@
                             <label class="block text-slate-700 text-sm font-bold mb-2">Coach Experience (years)</label>
                             {{ form.coach_experience }}
                         </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Opening Hours</label>
+                            {{ form.opening_hours }}
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Total Coaches</label>
+                            {{ form.total_coaches }}
+                        </div>
+                        <div>
+                            <label class="block text-slate-700 text-sm font-bold mb-2">Rating</label>
+                            {{ form.rating }}
+                        </div>
+                    </div>
+
+                    <!-- GPS Location -->
+                    <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                        <div class="flex items-center justify-between mb-3">
+                            <label class="text-slate-700 text-sm font-bold">📍 Academy Location (GPS)</label>
+                            <button type="button" id="gpsBtn" onclick="getGPSLocation()" class="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all transform hover:scale-105 shadow">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                Use My Current Location
+                            </button>
+                        </div>
+                        <p id="gpsStatus" class="text-xs text-slate-500 mb-3">Click the button to auto-fill your current GPS coordinates.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-slate-600 text-xs font-bold mb-1">Latitude</label>
+                                {{ form.latitude }}
+                            </div>
+                            <div>
+                                <label class="block text-slate-600 text-xs font-bold mb-1">Longitude</label>
+                                {{ form.longitude }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <label class="block text-slate-700 text-sm font-bold mb-2">Facilities</label>
+                        {{ form.facilities }}
                     </div>
                     <div class="mt-6">
                         <label class="block text-slate-700 text-sm font-bold mb-2">Description</label>
@@ -222,6 +268,45 @@
     </div>
     
     <script>
+        // Toggle add academy form
+        document.getElementById('toggleFormBtn').addEventListener('click', function() {
+            const form = document.getElementById('addAcademyForm');
+            form.classList.toggle('hidden');
+            if (!form.classList.contains('hidden')) {
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        // GPS location
+        function getGPSLocation() {
+            const btn = document.getElementById('gpsBtn');
+            const status = document.getElementById('gpsStatus');
+            if (!navigator.geolocation) {
+                status.textContent = '❌ Geolocation is not supported by your browser.';
+                status.className = 'text-xs text-red-500 mb-3';
+                return;
+            }
+            btn.textContent = '⏳ Getting location...';
+            btn.disabled = true;
+            navigator.geolocation.getCurrentPosition(
+                function(pos) {
+                    document.getElementById('id_latitude').value = pos.coords.latitude.toFixed(6);
+                    document.getElementById('id_longitude').value = pos.coords.longitude.toFixed(6);
+                    status.textContent = '✅ Location captured: ' + pos.coords.latitude.toFixed(4) + ', ' + pos.coords.longitude.toFixed(4);
+                    status.className = 'text-xs text-green-600 mb-3 font-bold';
+                    btn.innerHTML = '✅ Location Set';
+                    btn.disabled = false;
+                },
+                function(err) {
+                    status.textContent = '❌ Could not get location: ' + err.message;
+                    status.className = 'text-xs text-red-500 mb-3';
+                    btn.innerHTML = 'Use My Current Location';
+                    btn.disabled = false;
+                },
+                { enableHighAccuracy: true, timeout: 10000 }
+            );
+        }
+
         function openCoachModal() {
             document.getElementById('coachModal').classList.remove('hidden');
             document.getElementById('coachModal').classList.add('flex');
@@ -241,9 +326,7 @@
         }
         
         document.getElementById('coachModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeCoachModal();
-            }
+            if (e.target === this) closeCoachModal();
         });
     </script>
 </div>

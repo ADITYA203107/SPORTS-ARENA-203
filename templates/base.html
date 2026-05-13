@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{% block title %}Sports Academy Discovery Platform{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -76,6 +77,11 @@
                             Explore
                         </span>
                     </a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'academies:chat_inbox' %}" class="bg-white/10 backdrop-blur-sm border-2 border-cyan-400/30 rounded-xl px-4 py-3 text-cyan-200 hover:text-white hover:bg-cyan-500/20 text-sm font-bold transition-all duration-300">
+                        💬 Inbox
+                    </a>
+                    {% endif %}
                 </div>
                 
                 <!-- Right User Section -->
@@ -136,7 +142,7 @@
     {% endif %}
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<main class="{% block main_class %}max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8{% endblock %}">
         {% block content %}{% endblock %}
     </main>
 

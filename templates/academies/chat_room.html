@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chat · {{ academy.name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .bubble-me { background: linear-gradient(135deg,#22d3ee,#3b82f6); color:#020617; border-radius:1.25rem 1.25rem .35rem 1.25rem; }
+  .bubble-them { background: rgba(15,23,42,.85); border:1px solid rgba(148,163,184,.35); border-radius:1.25rem 1.25rem 1.25rem .35rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white pb-24">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex flex-col h-[calc(100vh-5rem)]">
+    <div class="flex items-center gap-3 mb-4">
+      <a href="{% url 'academies:chat_inbox' %}" class="text-cyan-300 text-sm font-bold hover:text-white">← Inbox</a>
+      <div class="flex-1">
+        <div class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">Live thread</div>
+        <div class="text-xl font-black">{{ academy.name }}</div>
+        <div class="text-xs text-slate-400 flex items-center gap-2 mt-1">
+          <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          {{ peer_label }} · <span class="text-cyan-300">sports desk online</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="chat-scroll" class="flex-1 overflow-y-auto space-y-3 pr-1 mb-3">
+      {% for m in messages_list %}
+      <div class="flex {% if m.sender_id == user.id %}justify-end{% else %}justify-start{% endif %}">
+        <div class="max-w-[82%] px-4 py-3 text-sm shadow-lg {% if m.sender_id == user.id %}bubble-me font-semibold{% else %}bubble-them text-slate-100{% endif %}">
+          <div>{{ m.body|linebreaksbr }}</div>
+          <div class="mt-1 text-[10px] opacity-70 text-right">{{ m.created_at|date:"H:i" }}</div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="text-center text-slate-400 text-sm py-10">Kick off the conversation — owners reply from the same sleek desk.</div>
+      {% endfor %}
+    </div>
+
+    <form id="chat-form" class="mt-auto flex gap-2 items-end">
+      {% csrf_token %}
+      <textarea id="chat-input" rows="2" class="flex-1 rounded-2xl bg-slate-950/80 border border-slate-700/80 px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/70 resize-none" placeholder="Drop your question, batch timing, or goals…"></textarea>
+      <button type="submit" class="rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 px-4 py-3 text-sm font-black text-slate-950 shadow-lg hover:scale-[1.02] transition">Send</button>
+    </form>
+  </div>
+</div>
+
+<script src="{% static 'js/day3-discovery.js' %}"></script>
+<script>
+  const pollUrl = "{% url 'academies:api_chat_poll' room.id %}";
+  const sendUrl = "{% url 'academies:api_chat_send' room.id %}";
+  let lastId = {{ last_message_id }};
+  const scrollEl = document.getElementById('chat-scroll');
+
+  function appendMessage(m) {
+    const mine = m.is_mine;
+    const wrap = document.createElement('div');
+    wrap.className = 'flex ' + (mine ? 'justify-end' : 'justify-start');
+    const bubble = document.createElement('div');
+    bubble.className = 'max-w-[82%] px-4 py-3 text-sm shadow-lg ' + (mine ? 'bubble-me font-semibold' : 'bubble-them text-slate-100');
+    const time = (m.created_at || '').split('T')[1]?.slice(0,5) || '';
+    bubble.innerHTML = '';
+    const bodyEl = document.createElement('div');
+    bodyEl.textContent = m.body;
+    const meta = document.createElement('div');
+    meta.className = 'mt-1 text-[10px] opacity-70 text-right';
+    meta.textContent = time;
+    bubble.appendChild(bodyEl);
+    bubble.appendChild(meta);
+    wrap.appendChild(bubble);
+    scrollEl.appendChild(wrap);
+    scrollEl.scrollTop = scrollEl.scrollHeight;
+  }
+
+  document.getElementById('chat-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const ta = document.getElementById('chat-input');
+    const body = ta.value.trim();
+    if (!body) return;
+    ta.value = '';
+    fetchJSON(sendUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ body }) })
+      .then((m) => { lastId = m.id; appendMessage({ ...m, is_mine: true }); })
+      .catch(() => alert('Unable to send — please retry.'));
+  });
+
+  setInterval(() => {
+    fetchJSON(pollUrl + '?after=' + lastId).then((data) => {
+      (data.messages || []).forEach((m) => { lastId = m.id; appendMessage(m); });
+    }).catch(() => {});
+  }, 3500);
+
+  scrollEl.scrollTop = scrollEl.scrollHeight;
+</script>
+{% endblock %}
