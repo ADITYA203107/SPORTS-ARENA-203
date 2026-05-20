@@ -27,8 +27,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.accounts',
     'apps.academies',
+    'apps.core',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,6 +53,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.academies.context_processors.google_maps',
+                'apps.core.context_processors.notifications',
             ],
         },
     },
@@ -102,7 +103,16 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Google Maps JavaScript API (set GOOGLE_MAPS_API_KEY in .env — never commit real keys to git)
 GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY', default='')
 
-# Default primary key field type
+# Email configuration
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='SPORTS ARENA <noreply@sportsarena.com>')
+SITE_URL = config('SITE_URL', default='http://127.0.0.1:8000')
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # REST Framework settings

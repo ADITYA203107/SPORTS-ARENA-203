@@ -1,0 +1,33 @@
+<div class="bg-slate-800/50 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all group">
+  <button onclick="toggleFAQ('faq-{{ faq.id }}')" class="w-full flex items-center justify-between p-5 text-left">
+    <span class="text-white font-semibold group-hover:text-blue-300 transition-colors pr-4">{{ faq.question }}</span>
+    <svg id="icon-faq-{{ faq.id }}" class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </button>
+  <div id="faq-{{ faq.id }}" class="hidden px-5 pb-5">
+    <div class="border-t border-slate-700 pt-4 text-slate-300 leading-relaxed text-sm">{{ faq.answer }}</div>
+    <div class="flex items-center gap-4 mt-4 pt-3 border-t border-slate-700/50">
+      <span class="text-slate-500 text-xs">Was this helpful?</span>
+      <button onclick="voteFAQ({{ faq.id }}, 'helpful')" class="flex items-center gap-1 text-xs text-slate-400 hover:text-green-400 transition-colors px-3 py-1 rounded-lg hover:bg-green-500/10">
+        👍 <span id="helpful-{{ faq.id }}">{{ faq.helpful_count }}</span>
+      </button>
+      <button onclick="voteFAQ({{ faq.id }}, 'not_helpful')" class="flex items-center gap-1 text-xs text-slate-400 hover:text-red-400 transition-colors px-3 py-1 rounded-lg hover:bg-red-500/10">
+        👎 <span id="nothelpful-{{ faq.id }}">{{ faq.not_helpful_count }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+function voteFAQ(id, action) {
+  fetch(`/faq/${id}/helpful/`, {
+    method: 'POST',
+    headers: {'X-CSRFToken': '{{ csrf_token }}', 'Content-Type': 'application/x-www-form-urlencoded'},
+    body: `action=${action}`
+  }).then(r => r.json()).then(d => {
+    document.getElementById('helpful-' + id).textContent = d.helpful;
+    document.getElementById('nothelpful-' + id).textContent = d.not_helpful;
+  });
+}
+</script>

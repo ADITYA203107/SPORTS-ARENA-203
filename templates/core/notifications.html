@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Notifications — SPORTS ARENA{% endblock %}
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-10">
+  <div class="max-w-3xl mx-auto px-4">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-black text-white">🔔 Notifications</h1>
+        <p class="text-slate-400 mt-1">{{ notifications|length }} total notifications</p>
+      </div>
+      <button onclick="markAllRead()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all border border-slate-600">Mark all read</button>
+    </div>
+
+    <div class="space-y-3">
+      {% for notif in notifications %}
+      <div class="bg-slate-800/50 border {% if not notif.is_read %}border-blue-500/30 bg-blue-500/5{% else %}border-slate-700/50{% endif %} rounded-2xl p-5 flex items-start gap-4 group hover:border-slate-600 transition-all">
+        <div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-lg
+          {% if notif.notif_type == 'booking_approved' %}bg-green-500/20
+          {% elif notif.notif_type == 'booking_rejected' %}bg-red-500/20
+          {% elif notif.notif_type == 'new_message' or notif.notif_type == 'academy_reply' %}bg-blue-500/20
+          {% elif notif.notif_type == 'ticket_reply' or notif.notif_type == 'ticket_created' %}bg-purple-500/20
+          {% else %}bg-slate-700{% endif %}">
+          {% if notif.notif_type == 'booking_approved' %}✅
+          {% elif notif.notif_type == 'booking_rejected' %}❌
+          {% elif notif.notif_type == 'new_booking' %}📋
+          {% elif notif.notif_type == 'new_message' or notif.notif_type == 'academy_reply' %}💬
+          {% elif notif.notif_type == 'ticket_reply' or notif.notif_type == 'ticket_created' %}🎫
+          {% elif notif.notif_type == 'welcome' %}🏆
+          {% else %}🔔{% endif %}
+        </div>
+        <div class="flex-1">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="text-white font-bold text-sm">{{ notif.title }}</h3>
+            <span class="text-slate-500 text-xs flex-shrink-0">{{ notif.created_at|timesince }} ago</span>
+          </div>
+          <p class="text-slate-400 text-sm mt-1">{{ notif.message }}</p>
+          {% if notif.link %}
+          <a href="{{ notif.link }}" class="text-blue-400 hover:text-blue-300 text-xs mt-2 inline-block transition-colors">View →</a>
+          {% endif %}
+        </div>
+        {% if not notif.is_read %}
+        <div class="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-2"></div>
+        {% endif %}
+      </div>
+      {% empty %}
+      <div class="text-center py-20 bg-slate-800/30 rounded-3xl border border-slate-700/50">
+        <div class="text-6xl mb-4">🔔</div>
+        <h3 class="text-xl font-bold text-white mb-2">All caught up!</h3>
+        <p class="text-slate-400">No notifications yet.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<script>
+function markAllRead() {
+  fetch('/api/notifications/mark-read/', {
+    method: 'POST',
+    headers: {'X-CSRFToken': '{{ csrf_token }}'}
+  }).then(() => location.reload());
+}
+</script>
+{% endblock %}

@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('apps.accounts.urls')),
     path('', include('apps.academies.urls')),
+    path('', include('apps.core.urls')),
 ]
 
 if settings.DEBUG:

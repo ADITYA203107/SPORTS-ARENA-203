@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block title %}FAQ — SPORTS ARENA{% endblock %}
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+
+  <!-- Hero -->
+  <div class="relative overflow-hidden bg-gradient-to-r from-blue-900/40 via-slate-900 to-cyan-900/40 border-b border-slate-700/50">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative max-w-5xl mx-auto px-4 py-20 text-center">
+      <div class="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 text-blue-300 px-4 py-2 rounded-full text-sm font-bold mb-6">
+        <span>❓</span> Knowledge Base
+      </div>
+      <h1 class="text-5xl md:text-6xl font-black text-white mb-4">Frequently Asked <span class="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Questions</span></h1>
+      <p class="text-slate-400 text-xl mb-10">Find answers instantly. No waiting, no tickets.</p>
+
+      <!-- Sticky Search -->
+      <div class="max-w-2xl mx-auto">
+        <form method="get" class="relative">
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input name="q" value="{{ query }}" placeholder="Search questions..." class="w-full bg-slate-800/80 backdrop-blur border border-slate-600 text-white placeholder-slate-400 pl-12 pr-4 py-4 rounded-2xl text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-5 py-2 rounded-xl font-bold text-sm hover:from-blue-700 hover:to-cyan-700 transition-all">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 py-12">
+
+    <!-- Category Filters -->
+    <div class="flex flex-wrap gap-3 mb-10 justify-center">
+      <a href="{% url 'core:faq' %}" class="px-5 py-2 rounded-full text-sm font-bold transition-all {% if not category_filter %}bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30{% else %}bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700{% %}">All Questions</a>
+      {% for cat in categories %}
+      <a href="?cat={{ cat.slug }}" class="px-5 py-2 rounded-full text-sm font-bold transition-all {% if category_filter == cat.slug %}bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30{% else %}bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700{% endif %}">
+        {{ cat.icon }} {{ cat.name }}
+      </a>
+      {% endfor %}
+    </div>
+
+    {% if not query and not category_filter %}
+    <!-- Popular Questions -->
+    <div class="mb-12">
+      <h2 class="text-2xl font-black text-white mb-6 flex items-center gap-2"><span class="text-yellow-400">🔥</span> Popular Questions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% for faq in popular %}
+        <div class="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-5 hover:border-blue-500/50 hover:bg-slate-800 transition-all cursor-pointer group" onclick="toggleFAQ('pop-{{ faq.id }}')">
+          <div class="flex items-start justify-between gap-3">
+            <p class="text-white font-semibold text-sm group-hover:text-blue-300 transition-colors">{{ faq.question }}</p>
+            <svg class="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5 transition-transform" id="pop-icon-{{ faq.id }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+          <div id="pop-{{ faq.id }}" class="hidden mt-3 text-slate-400 text-sm leading-relaxed border-t border-slate-700 pt-3">{{ faq.answer }}</div>
+        </div>
+        {% empty %}
+        <p class="text-slate-500 col-span-3">No popular questions yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- FAQ by Category or Search Results -->
+    {% if query %}
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-white">Search results for "<span class="text-blue-400">{{ query }}</span>" — {{ faqs|length }} found</h2>
+    </div>
+    <div class="space-y-3">
+      {% for faq in faqs %}
+      {% include 'core/_faq_item.html' %}
+      {% empty %}
+      <div class="text-center py-16">
+        <div class="text-6xl mb-4">🔍</div>
+        <p class="text-slate-400 text-lg">No results found. Try different keywords.</p>
+        <a href="{% url 'core:faq' %}" class="mt-4 inline-block text-blue-400 hover:text-blue-300">← Back to all FAQs</a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    {% for cat in categories %}
+    {% if not category_filter or category_filter == cat.slug %}
+    <div class="mb-10">
+      <div class="flex items-center gap-3 mb-5">
+        <span class="text-3xl">{{ cat.icon }}</span>
+        <div>
+          <h2 class="text-2xl font-black text-white">{{ cat.name }}</h2>
+          <p class="text-slate-500 text-sm">{{ cat.faqs.count }} questions</p>
+        </div>
+      </div>
+      <div class="space-y-3">
+        {% for faq in cat.faqs.all %}
+        {% include 'core/_faq_item.html' %}
+        {% empty %}
+        <p class="text-slate-500 text-sm">No FAQs in this category yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <!-- Still need help? -->
+    <div class="mt-16 bg-gradient-to-r from-blue-900/40 to-cyan-900/40 border border-blue-500/20 rounded-3xl p-10 text-center">
+      <div class="text-5xl mb-4">🤝</div>
+      <h3 class="text-2xl font-black text-white mb-2">Still need help?</h3>
+      <p class="text-slate-400 mb-6">Our support team is ready to assist you.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="{% url 'core:support' %}" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-xl font-bold hover:from-blue-700 hover:to-cyan-700 transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30">🎫 Open Support Ticket</a>
+        <a href="{% url 'core:contact' %}" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-xl font-bold transition-all border border-slate-600">📧 Contact Us</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleFAQ(id) {
+  const el = document.getElementById(id);
+  const icon = document.getElementById('icon-' + id) || document.getElementById('pop-icon-' + id.replace('faq-',''));
+  el.classList.toggle('hidden');
+  if (icon) icon.style.transform = el.classList.contains('hidden') ? '' : 'rotate(180deg)';
+}
+</script>
+{% endblock %}

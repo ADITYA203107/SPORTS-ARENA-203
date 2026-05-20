@@ -4,125 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
-    <title>{% block title %}Sports Academy Discovery Platform{% endblock %}</title>
+    <title>{% block title %}Sports Arena — Discover Excellence{% endblock %}</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#2563EB',
-                        secondary: '#22C55E',
-                        dark: '#1E293B',
-                        light: '#F8FAFC',
+                        primary: '#3B82F6',
+                        accent: '#10B981',
+                        dark: '#0A0F1C',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        .card-hover {
-            transition: all 0.3s ease;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        :root {
+            --font-display: 'Space Grotesk', sans-serif;
         }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .logo-font {
+            font-family: var(--font-display);
+        }
+
+        .glass {
+            background: rgba(10, 15, 28, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #60A5FA, #34D399);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .hero-text {
+            background: linear-gradient(90deg, #E0F2FE, #A5F3FC, #67E8F9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-hover {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
         .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-14px) scale(1.02);
+            box-shadow: 0 30px 60px -15px rgb(16 185 129 / 0.3);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #3B82F6, #10B981);
+            transition: all 0.4s ease;
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -10px rgb(16 185 129 / 0.5);
         }
     </style>
+
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-slate-50">
+<body class="bg-[#05080F] text-slate-200 overflow-x-hidden">
+
     <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl sticky top-0 z-50 border-b-4 border-gradient-to-r from-blue-500 via-purple-500 to-green-500">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <!-- Logo Box -->
-                <div class="flex items-center">
-                    <a href="{% url 'academies:home' %}" class="flex-shrink-0 flex items-center group bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-2xl px-4 py-2 hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300 shadow-lg">
-                        <div class="bg-gradient-to-r from-blue-600 to-green-500 p-2 rounded-xl mr-3 shadow-lg">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                            </svg>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-2xl font-black bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">SPORTS ARENA</span>
-                            <span class="text-xs text-slate-300 font-medium">Discover Excellence</span>
-                        </div>
-                    </a>
-                </div>
+    <nav class="glass sticky top-0 z-50 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="h-20 flex items-center justify-between">
                 
-                <!-- Center Navigation Boxes -->
-                <div class="hidden md:flex items-center space-x-3">
-                    <a href="#" class="bg-white/10 backdrop-blur-sm border-2 border-blue-400/30 rounded-xl px-5 py-3 text-blue-300 hover:text-white hover:bg-blue-500/30 hover:border-blue-400 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30 text-sm font-bold transition-all duration-300">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/></svg>
-                            Coaching
-                        </span>
-                    </a>
-                    <a href="#" class="bg-white/10 backdrop-blur-sm border-2 border-purple-400/30 rounded-xl px-5 py-3 text-purple-300 hover:text-white hover:bg-purple-500/30 hover:border-purple-400 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30 text-sm font-bold transition-all duration-300">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/></svg>
-                            Events
-                        </span>
-                    </a>
-                    <a href="#" class="bg-white/10 backdrop-blur-sm border-2 border-green-400/30 rounded-xl px-5 py-3 text-green-300 hover:text-white hover:bg-green-500/30 hover:border-green-400 hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 text-sm font-bold transition-all duration-300">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
-                            Training
-                        </span>
-                    </a>
-                    <a href="{% url 'academies:explore' %}" class="bg-gradient-to-r from-blue-600 to-green-500 border-2 border-white/30 rounded-xl px-5 py-3 text-white hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 text-sm font-bold transition-all duration-300">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
-                            Explore
-                        </span>
-                    </a>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'academies:chat_inbox' %}" class="bg-white/10 backdrop-blur-sm border-2 border-cyan-400/30 rounded-xl px-4 py-3 text-cyan-200 hover:text-white hover:bg-cyan-500/20 text-sm font-bold transition-all duration-300">
-                        💬 Inbox
-                    </a>
-                    {% endif %}
+                <!-- Logo -->
+                <a href="{% url 'academies:home' %}" class="flex items-center gap-4 group">
+                    <div class="w-11 h-11 bg-gradient-to-br from-blue-500 via-cyan-400 to-emerald-500 rounded-2xl flex items-center justify-center shadow-xl shadow-emerald-500/30 group-hover:rotate-12 transition-transform">
+                        <i class="fa-solid fa-dumbbell text-3xl text-white"></i>
+                    </div>
+                    <div>
+                        <span class="logo-font text-3xl font-bold tracking-tighter hero-text">SPORTS ARENA</span>
+                        <p class="text-[10px] text-emerald-400 tracking-[2px] font-medium -mt-1">PREMIUM ATHLETE DEVELOPMENT</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center gap-10 text-sm">
+                    <a href="#" class="nav-link text-slate-300 hover:text-white">Find Coaching</a>
+                    <a href="#" class="nav-link text-slate-300 hover:text-white">Upcoming Events</a>
+                    <a href="#" class="nav-link text-slate-300 hover:text-white">Training Programs</a>
+                    <a href="{% url 'academies:explore' %}" class="nav-link text-slate-300 hover:text-white">Explore Academies</a>
                 </div>
-                
-                <!-- Right User Section -->
-                <div class="flex items-center space-x-3">
+
+                <!-- Right Section -->
+                <div class="flex items-center gap-5">
                     {% if user.is_authenticated %}
-                        <!-- Welcome Box -->
-                        <div class="bg-gradient-to-r from-orange-500 to-pink-500 border-2 border-white/30 rounded-xl px-4 py-2 shadow-lg">
-                            <span class="text-white text-sm font-bold">Welcome, {{ user.username }}</span>
+
+                        <!-- Notification -->
+                        <div class="relative group" id="notifBell">
+                            <button onclick="toggleNotifDropdown()" 
+                                    class="w-11 h-11 glass rounded-2xl flex items-center justify-center hover:bg-white/10 transition-all relative">
+                                <i class="fa-solid fa-bell text-xl"></i>
+                                {% if unread_notif_count > 0 %}
+                                <span class="absolute -top-1 -right-1 bg-red-500 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center ring-2 ring-[#05080F]">
+                                    {{ unread_notif_count }}
+                                </span>
+                                {% endif %}
+                            </button>
                         </div>
-                        
-                        <!-- Profile Box -->
-                        <a href="{% url 'accounts:profile' %}" class="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl px-4 py-2 text-white hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300 shadow-lg">
-                            <span class="flex items-center gap-2 text-sm font-bold">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                                Profile
-                            </span>
+
+                        <!-- Profile -->
+                        <a href="{% url 'accounts:profile' %}" 
+                           class="flex items-center gap-3 glass rounded-3xl pl-2 pr-5 py-1.5 hover:ring-2 hover:ring-emerald-500/30 transition-all">
+                            <div class="w-8 h-8 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-2xl flex items-center justify-center text-sm font-bold">
+                                {{ user.username|slice:":1"|upper }}
+                            </div>
+                            <div class="hidden md:block">
+                                <p class="text-sm font-semibold">{{ user.username }}</p>
+                            </div>
                         </a>
-                        
+
                         {% if user.role == 'academy' %}
-                        <!-- Dashboard Box -->
-                        <a href="{% url 'accounts:dashboard' %}" class="bg-gradient-to-r from-purple-600 to-pink-500 border-2 border-white/30 rounded-xl px-4 py-2 text-white hover:scale-105 transition-all duration-300 shadow-lg">
-                            <span class="text-sm font-bold">Dashboard</span>
+                        <a href="{% url 'accounts:dashboard' %}" 
+                           class="btn-gradient px-7 py-3 rounded-3xl font-semibold text-sm shadow-lg">
+                            Dashboard
                         </a>
                         {% endif %}
-                        
-                        <!-- Logout Box -->
+
                         <form method="post" action="{% url 'accounts:logout' %}" class="inline">
                             {% csrf_token %}
-                            <button type="submit" class="bg-red-500/80 backdrop-blur-sm border-2 border-red-400/50 rounded-xl px-4 py-2 text-white hover:bg-red-500 hover:border-red-400 hover:scale-105 transition-all duration-300 shadow-lg">
-                                <span class="flex items-center gap-2 text-sm font-bold">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"/></svg>
-                                    Logout
-                                </span>
+                            <button type="submit" class="px-5 py-3 text-slate-400 hover:text-red-400 transition-colors">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             </button>
                         </form>
+
                     {% else %}
-                        <a href="{% url 'accounts:login' %}" class="bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl px-5 py-2 text-white hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-300 shadow-lg text-sm font-bold">
-                            Login
-                        </a>
-                        <a href="{% url 'accounts:signup' %}" class="bg-gradient-to-r from-blue-600 to-green-500 border-2 border-white/30 rounded-xl px-5 py-2 text-white hover:scale-105 transition-all duration-300 shadow-lg text-sm font-bold">
-                            Sign Up
+                        <a href="{% url 'accounts:login' %}" class="px-7 py-3 text-sm font-medium hover:text-white transition-colors">Log in</a>
+                        <a href="{% url 'accounts:signup' %}" 
+                           class="btn-gradient px-8 py-3 rounded-3xl font-semibold text-sm shadow-lg">
+                            Join Now
                         </a>
                     {% endif %}
                 </div>
@@ -132,92 +175,94 @@
 
     <!-- Messages -->
     {% if messages %}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-2" role="alert">
-                    <span class="block sm:inline">{{ message }}</span>
-                </div>
-            {% endfor %}
-        </div>
+    <div class="max-w-7xl mx-auto px-8 mt-6">
+        {% for message in messages %}
+            <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 px-6 py-4 rounded-3xl flex items-center gap-3">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+    </div>
     {% endif %}
 
     <!-- Main Content -->
-<main class="{% block main_class %}max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8{% endblock %}">
+    <main class="{% block main_class %}max-w-7xl mx-auto px-8 py-14{% endblock %}">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="text-center">
-                <p>&copy; 2024 Sports Academy Discovery Platform. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center">
-        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl max-w-md w-full mx-4 shadow-2xl border border-slate-600/50 transform transition-all">
-            <div class="p-6 border-b border-slate-600/50">
+    <!-- Booking Modal (Premium) -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/80 backdrop-blur-2xl hidden items-center justify-center z-[100]">
+        <div class="bg-[#0F1629] rounded-3xl max-w-md w-full mx-4 overflow-hidden border border-slate-700/50 shadow-2xl">
+            
+            <div class="bg-gradient-to-r from-blue-600 to-emerald-500 p-8 text-white">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-2xl font-black text-white">Book Academy</h2>
-                    <button onclick="closeBookingModal()" class="text-slate-400 hover:text-white transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
+                    <div>
+                        <h2 class="text-3xl font-bold tracking-tight">Book Your Session</h2>
+                        <p class="mt-1 opacity-90">Reserve your spot with top coaches</p>
+                    </div>
+                    <button onclick="closeBookingModal()" class="text-white/70 hover:text-white text-3xl leading-none">×</button>
                 </div>
             </div>
-            <div class="p-6">
-                <form id="bookingForm">
-                    <div class="mb-4">
-                        <label class="block text-slate-300 text-sm font-bold mb-2">Select Date</label>
-                        <input type="date" class="w-full bg-slate-700/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+
+            <div class="p-8 space-y-6">
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-slate-400 mb-2">Select Date</label>
+                    <input type="date" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-slate-400 mb-3">Available Slots</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="time-btn py-4 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all text-sm font-medium">09:00 AM</button>
+                        <button class="time-btn py-4 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all text-sm font-medium">11:30 AM</button>
+                        <button class="time-btn py-4 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all text-sm font-medium">02:00 PM</button>
+                        <button class="time-btn py-4 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all text-sm font-medium">04:30 PM</button>
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-slate-300 text-sm font-bold mb-2">Select Time</label>
-                        <select class="w-full bg-slate-700/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                            <option>9:00 AM - 10:00 AM</option>
-                            <option>10:00 AM - 11:00 AM</option>
-                            <option>11:00 AM - 12:00 PM</option>
-                            <option>2:00 PM - 3:00 PM</option>
-                            <option>3:00 PM - 4:00 PM</option>
-                            <option>4:00 PM - 5:00 PM</option>
-                        </select>
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-slate-300 text-sm font-bold mb-2">Additional Notes</label>
-                        <textarea class="w-full bg-slate-700/50 border border-slate-600/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all h-24" placeholder="Any special requirements..."></textarea>
-                    </div>
-                    <div class="flex gap-4">
-                        <button type="button" onclick="closeBookingModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105">
-                            Cancel
-                        </button>
-                        <button type="submit" class="flex-1 bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-700 hover:to-green-600 text-white px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl">
-                            Confirm Booking
-                        </button>
-                    </div>
-                </form>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-slate-400 mb-2">Message to Academy</label>
+                    <textarea class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 h-28 focus:outline-none focus:border-emerald-500" placeholder="Looking forward to training..."></textarea>
+                </div>
+
+                <div class="flex gap-4 pt-4">
+                    <button onclick="closeBookingModal()" 
+                            class="flex-1 py-4 rounded-2xl border border-slate-700 hover:bg-slate-800 font-medium transition-all">
+                        Cancel
+                    </button>
+                    <button onclick="confirmBooking()" 
+                            class="flex-1 btn-gradient py-4 rounded-2xl font-semibold text-lg">
+                        Confirm Booking
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        function toggleNotifDropdown() {
+            alert("🛎️ Notifications panel would open here (fully functional version coming soon)");
+        }
+
         function openBookingModal() {
             document.getElementById('bookingModal').classList.remove('hidden');
             document.getElementById('bookingModal').classList.add('flex');
         }
-        
+
         function closeBookingModal() {
-            document.getElementById('bookingModal').classList.add('hidden');
-            document.getElementById('bookingModal').classList.remove('flex');
+            const modal = document.getElementById('bookingModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
-        
-        // Close modal when clicking outside
+
+        function confirmBooking() {
+            alert("🎉 Booking Confirmed! (This is a demo)");
+            closeBookingModal();
+        }
+
+        // Close modal on outside click
         document.getElementById('bookingModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeBookingModal();
-            }
+            if (e.target === this) closeBookingModal();
         });
     </script>
 
