@@ -38,11 +38,16 @@
             font-family: var(--font-display);
         }
 
+        /* ==================== FIXED GLASS NAVBAR ==================== */
         .glass {
-            background: rgba(10, 15, 28, 0.85);
-            backdrop-filter: blur(24px);
+            background: rgba(10, 15, 28, 0.65) !important;   /* Reduced opacity */
+            backdrop-filter: blur(9px);
             -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        nav {
+            z-index: 10;
         }
 
         .nav-link {
@@ -96,7 +101,7 @@
 <body class="bg-[#05080F] text-slate-200 overflow-x-hidden">
 
     <!-- Navbar -->
-    <nav class="glass sticky top-0 z-50 border-b border-white/5">
+    <nav class="glass sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-8">
             <div class="h-20 flex items-center justify-between">
                 
@@ -123,7 +128,6 @@
                 <div class="flex items-center gap-5">
                     {% if user.is_authenticated %}
 
-                        <!-- Notification -->
                         <div class="relative group" id="notifBell">
                             <button onclick="toggleNotifDropdown()" 
                                     class="w-11 h-11 glass rounded-2xl flex items-center justify-center hover:bg-white/10 transition-all relative">
@@ -136,7 +140,6 @@
                             </button>
                         </div>
 
-                        <!-- Profile -->
                         <a href="{% url 'accounts:profile' %}" 
                            class="flex items-center gap-3 glass rounded-3xl pl-2 pr-5 py-1.5 hover:ring-2 hover:ring-emerald-500/30 transition-all">
                             <div class="w-8 h-8 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-2xl flex items-center justify-center text-sm font-bold">
@@ -190,10 +193,9 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Booking Modal (Premium) -->
+    <!-- Booking Modal -->
     <div id="bookingModal" class="fixed inset-0 bg-black/80 backdrop-blur-2xl hidden items-center justify-center z-[100]">
         <div class="bg-[#0F1629] rounded-3xl max-w-md w-full mx-4 overflow-hidden border border-slate-700/50 shadow-2xl">
-            
             <div class="bg-gradient-to-r from-blue-600 to-emerald-500 p-8 text-white">
                 <div class="flex justify-between items-center">
                     <div>
@@ -226,14 +228,8 @@
                 </div>
 
                 <div class="flex gap-4 pt-4">
-                    <button onclick="closeBookingModal()" 
-                            class="flex-1 py-4 rounded-2xl border border-slate-700 hover:bg-slate-800 font-medium transition-all">
-                        Cancel
-                    </button>
-                    <button onclick="confirmBooking()" 
-                            class="flex-1 btn-gradient py-4 rounded-2xl font-semibold text-lg">
-                        Confirm Booking
-                    </button>
+                    <button onclick="closeBookingModal()" class="flex-1 py-4 rounded-2xl border border-slate-700 hover:bg-slate-800 font-medium transition-all">Cancel</button>
+                    <button onclick="confirmBooking()" class="flex-1 btn-gradient py-4 rounded-2xl font-semibold text-lg">Confirm Booking</button>
                 </div>
             </div>
         </div>
@@ -241,7 +237,7 @@
 
     <script>
         function toggleNotifDropdown() {
-            alert("🛎️ Notifications panel would open here (fully functional version coming soon)");
+            alert("🛎️ Notifications panel would open here");
         }
 
         function openBookingModal() {
@@ -256,11 +252,10 @@
         }
 
         function confirmBooking() {
-            alert("🎉 Booking Confirmed! (This is a demo)");
+            alert("🎉 Booking Confirmed!");
             closeBookingModal();
         }
 
-        // Close modal on outside click
         document.getElementById('bookingModal').addEventListener('click', function(e) {
             if (e.target === this) closeBookingModal();
         });
