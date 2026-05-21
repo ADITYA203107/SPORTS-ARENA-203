@@ -118,10 +118,10 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden lg:flex items-center gap-10 text-sm">
-                    <a href="#" class="nav-link text-slate-300 hover:text-white">Find Coaching</a>
-                    <a href="#" class="nav-link text-slate-300 hover:text-white">Upcoming Events</a>
-                    <a href="#" class="nav-link text-slate-300 hover:text-white">Training Programs</a>
-                    <a href="{% url 'academies:explore' %}" class="nav-link text-slate-300 hover:text-white">Explore Academies</a>
+                    <a href="{% url 'academies:explore' %}" class="nav-link text-slate-300 hover:text-white">🔍 Explore</a>
+                    <a href="{% url 'core:faq' %}" class="nav-link text-slate-300 hover:text-white">❓ FAQ</a>
+                    <a href="{% url 'core:support' %}" class="nav-link text-slate-300 hover:text-white">🎫 Support</a>
+                    <a href="{% url 'core:contact' %}" class="nav-link text-slate-300 hover:text-white">📧 Contact</a>
                 </div>
 
                 <!-- Right Section -->
@@ -193,6 +193,75 @@
         {% block content %}{% endblock %}
     </main>
 
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 mt-20">
+        <div class="max-w-7xl mx-auto px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-dumbbell text-xl text-white"></i>
+                        </div>
+                        <span class="logo-font text-xl font-bold hero-text">SPORTS ARENA</span>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed">Discover world-class sports academies and connect with expert coaches.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">Platform</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="{% url 'academies:explore' %}" class="text-slate-400 hover:text-white transition-colors">🔍 Explore Academies</a></li>
+                        <li><a href="{% url 'accounts:dashboard' %}" class="text-slate-400 hover:text-white transition-colors">🎯 Dashboard</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors">🏆 Top Coaches</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors">📊 Analytics</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="{% url 'core:faq' %}" class="text-slate-400 hover:text-white transition-colors">❓ FAQ Center</a></li>
+                        <li><a href="{% url 'core:support' %}" class="text-slate-400 hover:text-white transition-colors">🎫 Help & Support</a></li>
+                        <li><a href="{% url 'core:contact' %}" class="text-slate-400 hover:text-white transition-colors">📧 Contact Us</a></li>
+                        <li><a href="{% url 'core:feedback' %}" class="text-slate-400 hover:text-white transition-colors">💬 Feedback</a></li>
+                    </ul>
+                </div>
+
+                <!-- Connect -->
+                <div>
+                    <h4 class="text-white font-bold mb-4">Connect</h4>
+                    <div class="flex gap-3 mb-4">
+                        <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-blue-600 rounded-xl flex items-center justify-center transition-all">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-blue-700 rounded-xl flex items-center justify-center transition-all">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-pink-600 rounded-xl flex items-center justify-center transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-red-600 rounded-xl flex items-center justify-center transition-all">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <p class="text-slate-500 text-xs">Join our community of athletes and coaches.</p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+                <p>&copy; 2024 SPORTS ARENA. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <!-- Booking Modal -->
     <div id="bookingModal" class="fixed inset-0 bg-black/80 backdrop-blur-2xl hidden items-center justify-center z-[100]">
         <div class="bg-[#0F1629] rounded-3xl max-w-md w-full mx-4 overflow-hidden border border-slate-700/50 shadow-2xl">
@@ -235,10 +304,113 @@
         </div>
     </div>
 
+    <!-- Notification Dropdown -->
+    <div id="notifDropdown" class="hidden fixed top-24 right-8 w-96 bg-slate-900 border border-slate-700 rounded-3xl shadow-2xl z-50 overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-600 to-cyan-600 p-4 flex items-center justify-between">
+            <h3 class="text-white font-bold">🔔 Notifications</h3>
+            <button onclick="markAllNotificationsRead()" class="text-white/80 hover:text-white text-xs font-medium">Mark all read</button>
+        </div>
+        <div id="notifList" class="max-h-96 overflow-y-auto">
+            <div class="p-8 text-center text-slate-500">
+                <div class="text-4xl mb-2">🔔</div>
+                <p class="text-sm">Loading notifications...</p>
+            </div>
+        </div>
+        <div class="border-t border-slate-700 p-3 text-center">
+            <a href="{% url 'core:notifications' %}" class="text-blue-400 hover:text-blue-300 text-sm font-medium">View All →</a>
+        </div>
+    </div>
+
     <script>
+        let notifDropdownOpen = false;
+
         function toggleNotifDropdown() {
-            alert("🛎️ Notifications panel would open here");
+            const dropdown = document.getElementById('notifDropdown');
+            notifDropdownOpen = !notifDropdownOpen;
+            dropdown.classList.toggle('hidden', !notifDropdownOpen);
+            if (notifDropdownOpen) {
+                loadNotifications();
+            }
         }
+
+        function loadNotifications() {
+            fetch('/api/notifications/')
+                .then(r => r.json())
+                .then(data => {
+                    const list = document.getElementById('notifList');
+                    if (data.notifications.length === 0) {
+                        list.innerHTML = `
+                            <div class="p-8 text-center text-slate-500">
+                                <div class="text-4xl mb-2">✨</div>
+                                <p class="text-sm">All caught up!</p>
+                            </div>
+                        `;
+                    } else {
+                        list.innerHTML = data.notifications.map(n => `
+                            <div class="border-b border-slate-800 p-4 hover:bg-slate-800/50 transition-colors">
+                                <div class="flex items-start gap-3">
+                                    <div class="text-xl">${getNotifIcon(n.type)}</div>
+                                    <div class="flex-1">
+                                        <h4 class="text-white text-sm font-semibold">${n.title}</h4>
+                                        <p class="text-slate-400 text-xs mt-1">${n.message}</p>
+                                        <span class="text-slate-600 text-xs mt-1 block">${n.time}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                });
+        }
+
+        function getNotifIcon(type) {
+            const icons = {
+                'booking_approved': '✅',
+                'booking_rejected': '❌',
+                'new_booking': '📋',
+                'new_message': '💬',
+                'academy_reply': '💬',
+                'ticket_reply': '🎫',
+                'ticket_created': '🎫',
+                'welcome': '🏆',
+                'system': '🔔'
+            };
+            return icons[type] || '🔔';
+        }
+
+        function markAllNotificationsRead() {
+            fetch('/api/notifications/mark-read/', {
+                method: 'POST',
+                headers: {'X-CSRFToken': document.querySelector('[name=csrf-token]').content}
+            }).then(() => {
+                location.reload();
+            });
+        }
+
+        // Poll for new notifications every 30 seconds
+        {% if user.is_authenticated %}
+        setInterval(() => {
+            fetch('/api/notifications/')
+                .then(r => r.json())
+                .then(data => {
+                    const badge = document.querySelector('#notifBell span');
+                    if (badge && data.count > 0) {
+                        badge.textContent = data.count;
+                        badge.classList.remove('hidden');
+                    } else if (badge && data.count === 0) {
+                        badge.classList.add('hidden');
+                    }
+                });
+        }, 30000);
+        {% endif %}
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('notifDropdown');
+            const bell = document.getElementById('notifBell');
+            if (notifDropdownOpen && !dropdown.contains(e.target) && !bell.contains(e.target)) {
+                toggleNotifDropdown();
+            }
+        });
 
         function openBookingModal() {
             document.getElementById('bookingModal').classList.remove('hidden');

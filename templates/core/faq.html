@@ -31,7 +31,7 @@
 
     <!-- Category Filters -->
     <div class="flex flex-wrap gap-3 mb-10 justify-center">
-      <a href="{% url 'core:faq' %}" class="px-5 py-2 rounded-full text-sm font-bold transition-all {% if not category_filter %}bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30{% else %}bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700{% %}">All Questions</a>
+      <a href="{% url 'core:faq' %}" class="px-5 py-2 rounded-full text-sm font-bold transition-all {% if not category_filter %}bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30{% else %}bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700{% endif %}">All Questions</a>
       {% for cat in categories %}
       <a href="?cat={{ cat.slug }}" class="px-5 py-2 rounded-full text-sm font-bold transition-all {% if category_filter == cat.slug %}bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/30{% else %}bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700{% endif %}">
         {{ cat.icon }} {{ cat.name }}
